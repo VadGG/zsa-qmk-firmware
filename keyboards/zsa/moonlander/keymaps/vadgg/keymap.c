@@ -28,8 +28,7 @@
 
 enum layers {
     BASE,  // default layer
-    SYMB,  // symbols
-    MDIA,  // media keys
+    NAV,  // navidation
 };
 
 enum custom_keycodes {
@@ -38,38 +37,36 @@ enum custom_keycodes {
 
 // COMBOS
 const uint16_t PROGMEM custom_esc[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM qmk_boot[] = {KC_R, KC_TAB, COMBO_END};
+const uint16_t PROGMEM arr_panic[] = {KC_UP, KC_DOWN, COMBO_END};
 
 combo_t                key_combos[] = {
     COMBO(custom_esc, KC_ESC),
+    COMBO(qmk_boot, QK_BOOT),
+    COMBO(arr_panic, TO(BASE)),
 };
+
+#define KC_VIM_END S(KC_4)
+#define KC_VIM_START S(KC_6)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
-        KC_GRAVE,       KC_1,            KC_2,          KC_3,         KC_4,    KC_5,    LSFT(KC_COMMA),           LSFT(KC_DOT),      KC_6,       KC_7,       KC_8,             KC_9,            KC_0,             KC_BACKSPACE,
-        KC_TAB,         KC_Q,            KC_W,          KC_E,         KC_R,    KC_T,    KC_MINUS,                 KC_EQUAL,          KC_Y,       KC_U,       KC_I,             KC_O,            KC_P,             KC_MINUS,
-        KC_ESCAPE,      KC_A,            KC_S,          KC_D,         KC_F,    KC_G,    KC_LEFT_BRACKET,          KC_RIGHT_BRACKET,  KC_H,       KC_J,       KC_K,             KC_L,            KC_SEMICOLON,     KC_QUOTE,
-        KC_LSFT,        KC_Z,            KC_X,          KC_C,         KC_V,    KC_B,                                                 KC_N,       KC_M,       KC_COMM,          KC_DOT,          KC_SLASH,         KC_BACKSLASH,
-        KC_LEFT_CTRL,   KC_LEFT_GUI,     KC_LEFT_ALT,   KC_DOWN,      KC_UP,    SGUI(KC_4),                 RCTL_T(KC_ESC),                  KC_LEFT,   KC_RIGHT,          KC_LEFT_ALT,    KC_LEFT_GUI,       KC_LEFT_CTRL,
-                                                                           KC_SPC,  KC_LSFT, KC_NO,        KC_NO,  KC_TAB,  KC_ENT
+        KC_GRAVE,       KC_1,            KC_2,                 KC_3,                 KC_4,                KC_5,    LSFT(KC_COMMA),           LSFT(KC_DOT),         KC_6,               KC_7,               KC_8,             KC_9,            KC_0,             KC_BACKSPACE,
+        KC_TAB,         KC_Q,            KC_W,                 KC_E,                 KC_R,                KC_T,    KC_MINUS,                 KC_EQUAL,             KC_Y,               KC_U,               KC_I,             KC_O,            KC_P,             KC_MINUS,
+        KC_ESCAPE,      KC_A,            KC_S,         KC_D,         KC_F,        KC_G,    KC_LEFT_BRACKET,          KC_RIGHT_BRACKET,     KC_H,       KC_J,       KC_K,             KC_L,            KC_SEMICOLON,     KC_QUOTE,
+        KC_LSFT,        KC_Z,            KC_X,                 KC_C,                 KC_V,                KC_B,                                                    KC_N,               KC_M,               KC_COMM,          KC_DOT,          KC_SLASH,         KC_BACKSLASH,
+        KC_LEFT_CTRL,   KC_LEFT_GUI,     KC_LEFT_ALT,          KC_DOWN,              KC_UP,            SGUI(KC_4),                 RCTL_T(KC_ESC),                 KC_LEFT,            KC_RIGHT,           KC_LEFT_ALT,    KC_LEFT_GUI,       KC_LEFT_CTRL,
+                                                                                       KC_SPC,  KC_LSFT, _______,        _______,  MO(NAV),  KC_ENT
     ),
 
-    [SYMB] = LAYOUT(
-        VRSN,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,           _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-        _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE, _______,           _______, KC_UP,   KC_7,    KC_8,    KC_9,    KC_ASTR, KC_F12,
-        _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,  _______,           _______, KC_DOWN, KC_4,    KC_5,    KC_6,    KC_PLUS, _______,
-        _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,                             KC_AMPR, KC_1,    KC_2,    KC_3,    KC_BSLS, _______,
-        EE_CLR,  _______, _______, _______, _______,          RGB_VAI,           RGB_TOG,          _______, KC_DOT,  KC_0,    KC_EQL,  _______,
-                                            RGB_HUD, RGB_VAD, RGB_HUI, TOGGLE_LAYER_COLOR,_______, _______
-    ),
-
-    [MDIA] = LAYOUT(
-        LED_LEVEL,_______,_______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, QK_BOOT,
-        _______, _______, _______, KC_MS_U, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,           _______, _______, _______, _______, _______, _______, KC_MPLY,
-        _______, _______, _______, _______, _______, _______,                             _______, _______, KC_MPRV, KC_MNXT, _______, _______,
-        _______, _______, _______, KC_BTN1, KC_BTN2,         _______,            _______,          KC_VOLU, KC_VOLD, KC_MUTE, _______, _______,
-                                            _______, _______, _______,           _______, _______, _______
+    [NAV] = LAYOUT(
+        _______,       KC_F1,             KC_F2,               KC_F3,                 KC_F4,              KC_F5,            KC_F6,             KC_F7,              KC_F8,          KC_F9,             KC_F10,             KC_F11,             KC_F12,          KC_DELETE,
+        _______,       _______,           _______,             _______,               _______,            _______,          _______,           _______,            KC_LEFT,        KC_DOWN,           KC_UP,            KC_RIGHT,            _______,         _______,
+        TO(BASE),       _______,          KC_LEFT_CTRL,        KC_LEFT_ALT,           KC_LEFT_GUI,        _______,          _______,           _______,            KC_H,           KC_J,                 KC_K,              KC_L,           KC_VIM_END,         _______,
+        _______,       _______,           _______,             _______,               _______,            _______,                                                 KC_HOME,           KC_PGDN,              KC_PGUP,               KC_INS,               KC_VIM_START,         _______,        
+        _______,       _______,           _______,             _______,               _______,       _______,                                             _______,            _______,           _______,            _______,            _______,         _______,
+                                                                                             _______, _______, _______,                      _______, KC_TRANSPARENT, _______
     ),
 };
 
@@ -107,6 +104,11 @@ void keyboard_post_init_user(void) {
 #define DEL_COLOR {239, 29, 49}      // bright red
 
 #define NUM_COLOR {140, 162, 250}      // light purple
+#define F_NUM_COLOR {83, 58, 255}      // bright purple
+#define F10_11_12_NUM_COLOR {152, 62, 255}      // bright purple
+
+#define HOME_KEYS_COLOR {255, 202, 58}      // bright purple
+
 #define ALPHA_COLOR {31, 39, 27}    // Black olive
 
 #define HOMEROW_MODS_COLOR { 255, 251, 70 } // bright yellow
@@ -123,13 +125,13 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            // TOP LEFT -----> Column 01 starting with `
            NUM_COLOR, SPACE_COLOR,  ESC_COLOR,  SHIFT_COLOR, MODIFIER_COLOR, 
            // TOP LEFT -----> Column 02 starting with 01 
-           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,  ALPHA_COLOR, MODIFIER_COLOR, 
+           NUM_COLOR, ALPHA_COLOR,  ALPHA_COLOR,  ALPHA_COLOR, MODIFIER_COLOR, 
            // TOP LEFT -----> Column 03 starting with 02 
            NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,  ALPHA_COLOR, MODIFIER_COLOR, 
            // TOP LEFT -----> Column 04 starting with 03
-           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,  ALPHA_COLOR, NUM_COLOR,
+           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,  ALPHA_COLOR, ARROW_COLOR ,
            // TOP LEFT -----> Column 05 starting with 04
-           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,  ALPHA_COLOR, NUM_COLOR, 
+           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,  ALPHA_COLOR, ARROW_COLOR , 
            // TOP LEFT -----> Column 06 starting with 05
            NUM_COLOR, ALPHA_COLOR,  ALPHA_COLOR,  ALPHA_COLOR, 
            // TOP LEFT -----> Column 07 starting with <
@@ -145,15 +147,53 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            // TOP RIGHT -----> Last column starting with 9
            NUM_COLOR, ALPHA_COLOR, ALPHA_COLOR,     SYMBOLS_COLOR,  MODIFIER_COLOR, 
            // TOP RIGHT -----> Last column starting with 8
-           NUM_COLOR, ALPHA_COLOR,  ALPHA_COLOR,     SYMBOLS_COLOR,  ARROW_COLOR ,
+           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,     SYMBOLS_COLOR,  ARROW_COLOR ,
            // TOP RIGHT -----> Last column starting with 7
-           NUM_COLOR, ALPHA_COLOR,  ALPHA_COLOR,     ALPHA_COLOR, ARROW_COLOR , 
+           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,     ALPHA_COLOR, ARROW_COLOR, 
            // TOP RIGHT -----> Last column starting with 6
-           NUM_COLOR, ALPHA_COLOR,  ALPHA_COLOR, ALPHA_COLOR,  
+           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR, ALPHA_COLOR,  
            // TOP LEFT -----> Column 07 starting with >
            SYMBOLS_COLOR, SYMBOLS_COLOR,  SYMBOLS_COLOR,
+
            //  Right Thumb Keys,                           // Special red button
            SPACE_COLOR, LAYER_SWITCH_COLOR,  NO_COLOR,     NO_COLOR},
+
+      [NAV] = {
+           // TOP LEFT -----> Column 01 starting with `
+           F_NUM_COLOR, NO_COLOR,  LAYER_SWITCH_COLOR,  NO_COLOR, NO_COLOR, 
+           // TOP LEFT -----> Column 02 starting with 01 
+           F_NUM_COLOR, NO_COLOR,  NO_COLOR,  NO_COLOR, NO_COLOR, 
+           // TOP LEFT -----> Column 03 starting with 02 
+           F_NUM_COLOR, NO_COLOR,  MODIFIER_COLOR,  NO_COLOR, NO_COLOR, 
+           // TOP LEFT -----> Column 04 starting with 03
+           F_NUM_COLOR, NO_COLOR,  MODIFIER_COLOR,  NO_COLOR, NO_COLOR,
+           // TOP LEFT -----> Column 05 starting with 04
+           F_NUM_COLOR, NO_COLOR,  MODIFIER_COLOR,  NO_COLOR, NO_COLOR, 
+           // TOP LEFT -----> Column 06 starting with 05
+           F_NUM_COLOR, NO_COLOR,  NO_COLOR,  NO_COLOR, 
+           // TOP LEFT -----> Column 07 starting with <
+           F_NUM_COLOR, NO_COLOR,  NO_COLOR,
+
+           //  Left Thumb Keys,                           // Special red button
+           NO_COLOR, SHIFT_COLOR,  NO_COLOR,     NO_COLOR,
+
+           // TOP RIGHT -----> Last column starting with backspace
+           DEL_COLOR, NO_COLOR,  NO_COLOR,  NO_COLOR,        NO_COLOR, 
+           // TOP RIGHT -----> Last column starting with 0
+           F10_11_12_NUM_COLOR , NO_COLOR,  SYMBOLS_COLOR ,  SYMBOLS_COLOR ,    NO_COLOR, 
+           // TOP RIGHT -----> Last column starting with 9
+           F10_11_12_NUM_COLOR , ARROW_COLOR,  ALPHA_COLOR,     HOME_KEYS_COLOR,  NO_COLOR, 
+           // TOP RIGHT -----> Last column starting with 8
+           F10_11_12_NUM_COLOR , ARROW_COLOR,  ALPHA_COLOR,     HOME_KEYS_COLOR,  NO_COLOR,
+           // TOP RIGHT -----> Last column starting with 7
+           F_NUM_COLOR,          ARROW_COLOR,  ALPHA_COLOR,     HOME_KEYS_COLOR, NO_COLOR, 
+           // TOP RIGHT          -----> Last column starting with 6
+           F_NUM_COLOR,          ARROW_COLOR,  ALPHA_COLOR,     HOME_KEYS_COLOR,  
+           // TOP LEFT -         ----> Column 07 starting with >
+           F_NUM_COLOR,          NO_COLOR,  NO_COLOR,
+
+           //  Right Thumb Keys,                           // Special red button
+           NO_COLOR, LAYER_SWITCH_COLOR,  NO_COLOR,     NO_COLOR},
 };
 
 void set_layer_color(int layer) {
@@ -189,9 +229,9 @@ bool rgb_matrix_indicators_user(void) {
         // rgb_matrix_indicators_user();
       // rgb_matrix_set_color_all(18, 38, 58);
       break;
-    // case SYMB:
-    //   set_layer_color(SYMB);
-    //   break;
+        case NAV:
+          set_layer_color(NAV);
+          break;
     // case SYM2:
     //   rgb_matrix_set_color_all(200, 200,  255);
     //   break;
