@@ -62,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [NAV] = LAYOUT(
         _______,       KC_F1,             KC_F2,               KC_F3,                 KC_F4,              KC_F5,            KC_F6,             KC_F7,              KC_F8,          KC_F9,             KC_F10,             KC_F11,             KC_F12,          KC_DELETE,
-        _______,       _______,           _______,             _______,               _______,            _______,          _______,           _______,            KC_LEFT,        KC_DOWN,           KC_UP,            KC_RIGHT,            _______,         _______,
+        _______,       _______,           _______,             _______,               _______,            _______,          _______,           _______,            KC_HOME,        KC_PGDN,           KC_PGUP,            KC_INS,            _______,         _______,
         TO(BASE),       _______,          KC_LEFT_CTRL,        KC_LEFT_ALT,           KC_LEFT_GUI,        _______,          _______,           _______,            KC_H,           KC_J,                 KC_K,              KC_L,           KC_VIM_END,         _______,
-        _______,       _______,           _______,             _______,               _______,            _______,                                                 KC_HOME,           KC_PGDN,              KC_PGUP,               KC_INS,               KC_VIM_START,         _______,        
+        _______,       _______,           _______,             _______,               _______,            _______,                                                 KC_LEFT,           KC_DOWN,              KC_UP,               KC_RIGHT,               KC_VIM_START,         _______,        
         _______,       _______,           _______,             _______,               _______,       _______,                                             _______,            _______,           _______,            _______,            _______,         _______,
                                                                                              _______, _______, _______,                      _______, KC_TRANSPARENT, _______
     ),
@@ -92,158 +92,154 @@ void keyboard_post_init_user(void) {
 }
 
 
-#define NORMAL_COLOR {178, 219, 191}    // light green
-#define SHIFT_COLOR {95, 237, 102}    // green
-#define MODIFIER_COLOR {252, 171, 16}  // orange
-#define ARROW_COLOR {0, 145, 173}      // blue
 
-#define SYMBOLS_COLOR {76, 185, 68}      // dark pastel green
+// Helper macro to convert hex to RGB
+#define HEX_TO_RGB(hex) \
+    { ((hex) >> 16) & 0xFF, ((hex) >> 8) & 0xFF, (hex) & 0xFF }
 
-#define ESC_COLOR {219, 34, 42}      // red
-#define SPACE_COLOR {242, 200, 65}      // yellow
-#define DEL_COLOR {239, 29, 49}      // bright red
+// Color definitions using hex values
+#define COLOR_NORMAL    HEX_TO_RGB(0x001f54)    // Example using your hex code
+#define COLOR_TRANSPARENT_OTHER HEX_TO_RGB(0x161A14)
 
-#define NUM_COLOR {140, 162, 250}      // light purple
-#define F_NUM_COLOR {83, 58, 255}      // bright purple
-#define F10_11_12_NUM_COLOR {152, 62, 255}      // bright purple
+#define COLOR_SHIFT    HEX_TO_RGB(0x35ce8d)     // emerald (green)
+#define COLOR_MODIFIER  HEX_TO_RGB(0xfcab10)    // orange
+#define COLOR_ARROW    HEX_TO_RGB(0xaf3e4d)     // redwood
+#define COLOR_SYMBOL   HEX_TO_RGB(0x4cb944)     // dark pastel green
+#define COLOR_ESC      HEX_TO_RGB(0xdb222a)     // red
+#define COLOR_SPACE    HEX_TO_RGB(0xf2c841)     // yellow
+#define COLOR_DELETE   HEX_TO_RGB(0xef1d31)     // bright red
+#define COLOR_NUMBER   HEX_TO_RGB(0x998fc2)     // grayish purple
+#define COLOR_FUNCTION HEX_TO_RGB(0xb5179e)     // bright purple
+#define COLOR_ALPHA    HEX_TO_RGB(0x1f271b)     // Black olive
+#define COLOR_LAYER    HEX_TO_RGB(0x6130ff)     // bright purple
+#define COLOR_HOMEROW  HEX_TO_RGB(0xfffb46)     // bright yellow
 
-#define HOME_KEYS_COLOR {255, 202, 58}      // bright purple
+// Helper function to check key types
+typedef struct {
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+} rgb_color;
 
-#define ALPHA_COLOR {31, 39, 27}    // Black olive
-
-#define HOMEROW_MODS_COLOR { 255, 251, 70 } // bright yellow
-
-#define LAYER_SWITCH_COLOR { 97, 48, 255 } // bright purple
-
-
-#define TEST_COLOR { 9, 232, 94 } // bright green
-
-#define NO_COLOR { 0, 0, 0 } 
-
-const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
-      [BASE] = {
-           // TOP LEFT -----> Column 01 starting with `
-           NUM_COLOR, SPACE_COLOR,  ESC_COLOR,  SHIFT_COLOR, MODIFIER_COLOR, 
-           // TOP LEFT -----> Column 02 starting with 01 
-           NUM_COLOR, ALPHA_COLOR,  ALPHA_COLOR,  ALPHA_COLOR, MODIFIER_COLOR, 
-           // TOP LEFT -----> Column 03 starting with 02 
-           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,  ALPHA_COLOR, MODIFIER_COLOR, 
-           // TOP LEFT -----> Column 04 starting with 03
-           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,  ALPHA_COLOR, ARROW_COLOR ,
-           // TOP LEFT -----> Column 05 starting with 04
-           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,  ALPHA_COLOR, ARROW_COLOR , 
-           // TOP LEFT -----> Column 06 starting with 05
-           NUM_COLOR, ALPHA_COLOR,  ALPHA_COLOR,  ALPHA_COLOR, 
-           // TOP LEFT -----> Column 07 starting with <
-           SYMBOLS_COLOR, SYMBOLS_COLOR,  SYMBOLS_COLOR,
-
-           //  Left Thumb Keys,                           // Special red button
-           SPACE_COLOR, SHIFT_COLOR,  NO_COLOR,     NO_COLOR,
-
-           // TOP RIGHT -----> Last column starting with backspace
-           DEL_COLOR, SYMBOLS_COLOR,  SYMBOLS_COLOR,    SYMBOLS_COLOR, MODIFIER_COLOR, 
-           // TOP RIGHT -----> Last column starting with 0
-           NUM_COLOR, ALPHA_COLOR,  SYMBOLS_COLOR, SYMBOLS_COLOR,  MODIFIER_COLOR, 
-           // TOP RIGHT -----> Last column starting with 9
-           NUM_COLOR, ALPHA_COLOR, ALPHA_COLOR,     SYMBOLS_COLOR,  MODIFIER_COLOR, 
-           // TOP RIGHT -----> Last column starting with 8
-           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,     SYMBOLS_COLOR,  ARROW_COLOR ,
-           // TOP RIGHT -----> Last column starting with 7
-           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR,     ALPHA_COLOR, ARROW_COLOR, 
-           // TOP RIGHT -----> Last column starting with 6
-           NUM_COLOR, ALPHA_COLOR,  HOMEROW_MODS_COLOR, ALPHA_COLOR,  
-           // TOP LEFT -----> Column 07 starting with >
-           SYMBOLS_COLOR, SYMBOLS_COLOR,  SYMBOLS_COLOR,
-
-           //  Right Thumb Keys,                           // Special red button
-           SPACE_COLOR, LAYER_SWITCH_COLOR,  NO_COLOR,     NO_COLOR},
-
-      [NAV] = {
-           // TOP LEFT -----> Column 01 starting with `
-           F_NUM_COLOR, NO_COLOR,  LAYER_SWITCH_COLOR,  NO_COLOR, NO_COLOR, 
-           // TOP LEFT -----> Column 02 starting with 01 
-           F_NUM_COLOR, NO_COLOR,  NO_COLOR,  NO_COLOR, NO_COLOR, 
-           // TOP LEFT -----> Column 03 starting with 02 
-           F_NUM_COLOR, NO_COLOR,  MODIFIER_COLOR,  NO_COLOR, NO_COLOR, 
-           // TOP LEFT -----> Column 04 starting with 03
-           F_NUM_COLOR, NO_COLOR,  MODIFIER_COLOR,  NO_COLOR, NO_COLOR,
-           // TOP LEFT -----> Column 05 starting with 04
-           F_NUM_COLOR, NO_COLOR,  MODIFIER_COLOR,  NO_COLOR, NO_COLOR, 
-           // TOP LEFT -----> Column 06 starting with 05
-           F_NUM_COLOR, NO_COLOR,  NO_COLOR,  NO_COLOR, 
-           // TOP LEFT -----> Column 07 starting with <
-           F_NUM_COLOR, NO_COLOR,  NO_COLOR,
-
-           //  Left Thumb Keys,                           // Special red button
-           NO_COLOR, SHIFT_COLOR,  NO_COLOR,     NO_COLOR,
-
-           // TOP RIGHT -----> Last column starting with backspace
-           DEL_COLOR, NO_COLOR,  NO_COLOR,  NO_COLOR,        NO_COLOR, 
-           // TOP RIGHT -----> Last column starting with 0
-           F10_11_12_NUM_COLOR , NO_COLOR,  SYMBOLS_COLOR ,  SYMBOLS_COLOR ,    NO_COLOR, 
-           // TOP RIGHT -----> Last column starting with 9
-           F10_11_12_NUM_COLOR , ARROW_COLOR,  ALPHA_COLOR,     HOME_KEYS_COLOR,  NO_COLOR, 
-           // TOP RIGHT -----> Last column starting with 8
-           F10_11_12_NUM_COLOR , ARROW_COLOR,  ALPHA_COLOR,     HOME_KEYS_COLOR,  NO_COLOR,
-           // TOP RIGHT -----> Last column starting with 7
-           F_NUM_COLOR,          ARROW_COLOR,  ALPHA_COLOR,     HOME_KEYS_COLOR, NO_COLOR, 
-           // TOP RIGHT          -----> Last column starting with 6
-           F_NUM_COLOR,          ARROW_COLOR,  ALPHA_COLOR,     HOME_KEYS_COLOR,  
-           // TOP LEFT -         ----> Column 07 starting with >
-           F_NUM_COLOR,          NO_COLOR,  NO_COLOR,
-
-           //  Right Thumb Keys,                           // Special red button
-           NO_COLOR, LAYER_SWITCH_COLOR,  NO_COLOR,     NO_COLOR},
-};
-
-void set_layer_color(int layer) {
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-    RGB rgb = {
-      .r = pgm_read_byte(&ledmap[layer][i][0]),
-      .g = pgm_read_byte(&ledmap[layer][i][1]),
-      .b = pgm_read_byte(&ledmap[layer][i][2]),
-    };
-
-    rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
-
-    // HSV hsv = {
-    //   .h = pgm_read_byte(&ledmap[layer][i][0]),
-    //   .s = pgm_read_byte(&ledmap[layer][i][1]),
-    //   .v = pgm_read_byte(&ledmap[layer][i][2]),
-    // };
-    // if (!hsv.h && !hsv.s && !hsv.v) {
-    //     rgb_matrix_set_color( i, 0, 0, 0 );
-    // } else {
-    //     RGB rgb = hsv_to_rgb( hsv );
-    //     float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-    //     rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
-    // }
-  }
+// Helper function to create RGB color from hex
+static inline rgb_color hex_to_rgb(uint32_t hex) {
+    return (rgb_color)HEX_TO_RGB(hex);
 }
 
-bool rgb_matrix_indicators_user(void) {
-  if (keyboard_config.disable_layer_led) { return false; }
-  switch (biton32(layer_state)) {
-    case BASE:
-      set_layer_color(BASE);
-        // rgb_matrix_indicators_user();
-      // rgb_matrix_set_color_all(18, 38, 58);
-      break;
+rgb_color get_key_color(uint16_t keycode, uint8_t row, uint8_t col, uint8_t layer) {
+    // Check for transparent keys
+    if (keycode == KC_TRANSPARENT) {
+        if (layer == BASE) {
+            // No color (off) for transparent keys in base layer
+            return (rgb_color){0, 0, 0};
+        } else {
+            // Dark color for transparent keys in other layers
+            return (rgb_color)COLOR_TRANSPARENT_OTHER;
+        }
+    }
+
+    // Check for arrow keys in any layer first
+    switch (keycode) {
+        case KC_LEFT:
+        case KC_RIGHT:
+        case KC_UP:
+        case KC_DOWN:
+            return (rgb_color)COLOR_ARROW;
+    }
+
+    // Check layer-specific colors
+    switch (layer) {
         case NAV:
-          set_layer_color(NAV);
-          break;
-    // case SYM2:
-    //   rgb_matrix_set_color_all(200, 200,  255);
-    //   break;
-    // case MEDI:
-    //   set_layer_color(MEDI);
-    //   break;
-   default:
-    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
-      rgb_matrix_set_color_all(0, 0, 0);
-    break;
-  }
-  return false;
+            // Handle navigation layer specific colors
+            if (keycode >= KC_F1 && keycode <= KC_F12) {
+                return (rgb_color)COLOR_FUNCTION;
+            }
+            break;
+    }
+
+    // Handle shift keys and modifiers
+    if (keycode == KC_LSFT || keycode == KC_RSFT || 
+        (IS_QK_MOD_TAP(keycode) && ((QK_MOD_TAP_GET_MODS(keycode) & MOD_MASK_SHIFT) == MOD_MASK_SHIFT))) {
+        return (rgb_color)COLOR_SHIFT;
+    }
+
+    // Handle other modifiers
+    if (IS_QK_MOD_TAP(keycode) || IS_MODIFIER_KEYCODE(keycode)) {
+        return (rgb_color)COLOR_MODIFIER;
+    }
+
+    // Handle basic keycodes
+    if (IS_QK_BASIC(keycode)) {
+        switch (keycode) {
+            case KC_TAB:
+            case KC_SPC:
+                return (rgb_color)COLOR_SPACE;
+            case KC_ESC:
+                return (rgb_color)COLOR_ESC;
+            case KC_BSPC:
+            case KC_DEL:
+                return (rgb_color)COLOR_DELETE;
+            case KC_GRAVE:
+            case KC_LT:    // <
+            case KC_GT:    // >
+                return (rgb_color)COLOR_SYMBOL;
+            default:
+                // Check number range
+                if (keycode >= KC_1 && keycode <= KC_0) {
+                    return (rgb_color)COLOR_NUMBER;
+                }
+                // Check letter range and home row
+                if (keycode >= KC_A && keycode <= KC_Z) {
+                    if (row == 2 && (col >= 1 && col <= 10)) {
+                        return (rgb_color)COLOR_HOMEROW;
+                    }
+                    return (rgb_color)COLOR_ALPHA;
+                }
+                // Check symbols
+                switch (keycode) {
+                    case KC_MINS:
+                    case KC_EQL:
+                    case KC_LBRC:
+                    case KC_RBRC:
+                    case KC_BSLS:
+                    case KC_SCLN:
+                    case KC_QUOT:
+                    case KC_COMM:
+                    case KC_DOT:
+                    case KC_SLSH:
+                        return (rgb_color)COLOR_SYMBOL;
+                }
+        }
+    }
+
+    // Handle layer changes
+    if (IS_QK_LAYER_TAP(keycode) || IS_QK_TO(keycode) || IS_QK_MOMENTARY(keycode)) {
+        return (rgb_color)COLOR_LAYER;
+    }
+
+    // Default color for unmatched keys
+    return (rgb_color)COLOR_NORMAL;
 }
 
-
+// Replace the existing rgb_matrix_indicators_user function
+bool rgb_matrix_indicators_user(void) {
+    if (keyboard_config.disable_layer_led) { return false; }
+    
+    uint8_t current_layer = get_highest_layer(layer_state);
+    
+    // Iterate through all keys
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            uint8_t index = g_led_config.matrix_co[row][col];
+            // Skip if this position doesn't have an LED
+            if (index >= DRIVER_LED_TOTAL) continue;
+            
+            uint16_t keycode = keymap_key_to_keycode(current_layer, (keypos_t){.row = row, .col = col});
+            rgb_color color = get_key_color(keycode, row, col, current_layer);
+            
+            rgb_matrix_set_color(index, color.r, color.g, color.b);
+        }
+    }
+    
+    return false;
+}
