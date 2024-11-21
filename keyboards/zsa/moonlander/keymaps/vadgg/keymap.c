@@ -21,11 +21,6 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
-#define RGB_MATRIX_STARTUP_HUE 0
-#define RGB_MATRIX_STARTUP_SAT 0
-#define RGB_MATRIX_STARTUP_VAL 0
-
 enum layers {
     BASE,  // default layer
     NAV,  // navidation
@@ -173,7 +168,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 
-#define DRIVER_LED_TOTAL 72
 extern rgb_config_t rgb_matrix_config;
 
 void keyboard_post_init_user(void) {
