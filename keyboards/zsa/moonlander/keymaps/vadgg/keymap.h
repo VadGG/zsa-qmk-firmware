@@ -1,10 +1,9 @@
 #pragma once
 
-#include QMK_KEYBOARD_H
-
 // Define custom keycodes
 enum custom_keycodes {
     VRSN = SAFE_RANGE,
+    MY_CTRL_TOGGLE,
 };
 
 // Convenience macros
@@ -13,3 +12,11 @@ enum custom_keycodes {
 #define KC_LESS_THAN LSFT(KC_COMMA)
 #define KC_MORE_THAN LSFT(KC_DOT)
 #define KC_BACKSPACE_WORD LALT(KC_BACKSPACE)
+
+
+enum layers {
+    BASE,  // default layer
+    NAV,  // navidation
+    NUM,  // numbers
+    CTRL
+};
