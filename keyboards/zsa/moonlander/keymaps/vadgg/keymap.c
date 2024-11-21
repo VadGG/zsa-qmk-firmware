@@ -84,12 +84,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                              _______, _______, _______,                      _______, _______, _______
     ),
     [CTRL] = LAYOUT(
-        KC_LEFT_GUI,                  KC_F1,           KC_F2,                KC_F3,                KC_F4,               KC_F5,   _______,                  _______,          KC_F6,             KC_F7,                KC_F8,                KC_F9,                 KC_F10,              KC_F11,
+        KC_LEFT_GUI,                  KC_F1,           KC_F2,                KC_F3,                KC_F4,               KC_F5,   KC_NO,                  KC_NO,          KC_F6,             KC_F7,                KC_F8,                KC_F9,                 KC_F10,              KC_F11,
         KC_LEFT_ALT,                  KC_Q,            KC_W,                 KC_E,                 KC_R,                KC_T,    KC_MINUS,                 KC_PLUS,             KC_Y,               KC_U,               KC_I,             KC_O,            KC_P,             KC_F12,
         _______,                KC_A,            KC_S,                 KC_D,                 KC_F,                KC_G,    KC_LEFT_BRACKET,          KC_RIGHT_BRACKET,     KC_H,               KC_J,               KC_K,             KC_L,            KC_SEMICOLON,     KC_LEFT_GUI,
         KC_LSFT,                 KC_Z,            KC_X,                 KC_C,                 KC_V,                KC_B,                                                    KC_N,               KC_M,               KC_COMM,          KC_DOT,          KC_SLASH,         KC_BACKSLASH,
-        _______,                 KC_LEFT_GUI,     KC_LEFT_ALT,          KC_DOWN,              KC_UP,                        KC_NO,                 KC_NO,                 KC_LEFT,            KC_RIGHT,           KC_LEFT_ALT,    KC_LEFT_GUI,       KC_LEFT_CTRL,
-                                                                                                      KC_SPC,  KC_KB_VOLUME_DOWN, _______,        _______,  KC_KB_VOLUME_UP,  KC_LSFT
+        KC_LEFT_CTRL,                 KC_LEFT_GUI,     KC_LEFT_ALT,          KC_DOWN,              KC_UP,                        KC_NO,                 KC_NO,                 KC_LEFT,            KC_RIGHT,           KC_LEFT_ALT,    KC_LEFT_GUI,       KC_LEFT_CTRL,
+                                                                                                      KC_SPC,  KC_KB_VOLUME_DOWN, KC_NO,        KC_NO,  KC_KB_VOLUME_UP,  KC_LSFT
     ),
 };
 
@@ -202,25 +202,27 @@ void keyboard_post_init_user(void) {
 #define COLOR_FUNCTION HEX_TO_RGB(0xb5179e)     // bright purple
 #define COLOR_ALPHA    HEX_TO_RGB(0x1f271b)     // Black olive
 
-#define COLOR_CTRL_ALPHA    HEX_TO_RGB(0xFF801F)     // orange
-#define COLOR_CTRL_SHIFT_ALPHA    HEX_TO_RGB(0x1F39FF)     // purple
-#define COLOR_CTRL_ALT_ALPHA    HEX_TO_RGB(0xFFCB1F)     // orange
-#define COLOR_CTRL_ALT_SHIFT_ALPHA    HEX_TO_RGB(0xFF1F7C)     // red
+// Dimmer colors for OFF states
+#define COLOR_CTRL_ALPHA_OFF    HEX_TO_RGB(0x331F0F)     // very dark orange
+#define COLOR_CTRL_SHIFT_ALPHA_OFF    HEX_TO_RGB(0x0D0E26)     // very dark purple
+#define COLOR_CTRL_ALT_ALPHA_OFF    HEX_TO_RGB(0x262708)     // very dark olive green
+#define COLOR_CTRL_ALT_SHIFT_ALPHA_OFF    HEX_TO_RGB(0x260612)     // very dark burgundy
 
-#define COLOR_CMD_ALPHA    HEX_TO_RGB(0xFF801F)     // light blue
-#define COLOR_CMD_SHIFT_ALPHA    HEX_TO_RGB(0x1F66FF)     // light purple
-#define COLOR_CMD_ALT_ALPHA    HEX_TO_RGB(0xBFFF1F)     // brigh green
-#define COLOR_CMD_ALT_SHIFT_ALPHA    HEX_TO_RGB(0xFF1F7C)     // bright purple
+#define COLOR_CMD_ALPHA_OFF    HEX_TO_RGB(0x341A06)     // very dark brown
+#define COLOR_CMD_SHIFT_ALPHA_OFF    HEX_TO_RGB(0x040A22)     // very dark navy
+#define COLOR_CMD_ALT_ALPHA_OFF    HEX_TO_RGB(0x1A2604)     // very dark forest green
+#define COLOR_CMD_ALT_SHIFT_ALPHA_OFF    HEX_TO_RGB(0x240410)     // very dark maroon
 
-#define COLOR_CTRL_ALPHA_OFF    HEX_TO_RGB(0x975D31)     // orange
-#define COLOR_CTRL_SHIFT_ALPHA_OFF    HEX_TO_RGB(0x22295C)     // purple
-#define COLOR_CTRL_ALT_ALPHA_OFF    HEX_TO_RGB(0x6C5408)     // orange
-#define COLOR_CTRL_ALT_SHIFT_ALPHA_OFF    HEX_TO_RGB(0x5C0F2F)     // red
+// Brighter colors for ON states (slightly adjusted for clarity)
+#define COLOR_CTRL_ALPHA    HEX_TO_RGB(0xFF801F)     // bright orange
+#define COLOR_CTRL_SHIFT_ALPHA    HEX_TO_RGB(0x1F39FF)     // bright purple
+#define COLOR_CTRL_ALT_ALPHA    HEX_TO_RGB(0xFFCB1F)     // bright yellow-orange
+#define COLOR_CTRL_ALT_SHIFT_ALPHA    HEX_TO_RGB(0xFF1F7C)     // bright pink/red
 
-#define COLOR_CMD_ALPHA_OFF    HEX_TO_RGB(0x683209)     // light blue
-#define COLOR_CMD_SHIFT_ALPHA_OFF    HEX_TO_RGB(0x0A2257)     // light purple
-#define COLOR_CMD_ALT_ALPHA_OFF    HEX_TO_RGB(0x465E0A)     // brigh green
-#define COLOR_CMD_ALT_SHIFT_ALPHA_OFF    HEX_TO_RGB(0x5A0A2D)     // bright purple
+#define COLOR_CMD_ALPHA    HEX_TO_RGB(0xfb4d3d)     // bright orange (same as CTRL)
+#define COLOR_CMD_SHIFT_ALPHA    HEX_TO_RGB(0x1F66FF)     // bright blue
+#define COLOR_CMD_ALT_ALPHA    HEX_TO_RGB(0xBFFF1F)     // bright green
+#define COLOR_CMD_ALT_SHIFT_ALPHA    HEX_TO_RGB(0xFF1F7C)     // bright pink/red
 
 #define COLOR_LAYER    HEX_TO_RGB(0x6130ff)     // bright purple
 #define COLOR_HOMEROW  HEX_TO_RGB(0xfffb46)     // bright yellow
@@ -263,17 +265,62 @@ rgb_color get_key_color(uint16_t keycode, uint8_t row, uint8_t col, uint8_t laye
             return (rgb_color)COLOR_ARROW;
     }
 
+    if (layer == CTRL) {
+        // Check for modifier keys and apply OFF colors based on current state
+        switch (keycode) {
+            case KC_LEFT_ALT:
+            case KC_RIGHT_ALT:
+                if (ctrl_layer_cmd_active) {
+                    // ALT key color when in CMD mode and ALT is off
+                    return ctrl_layer_alt_active ? 
+                        (rgb_color)COLOR_ALT : 
+                        (rgb_color)COLOR_CMD_ALT_ALPHA_OFF;
+                } else {
+                    // ALT key color when in CTRL mode and ALT is off
+                    return ctrl_layer_alt_active ? 
+                        (rgb_color)COLOR_ALT : 
+                        (rgb_color)COLOR_CTRL_ALT_ALPHA_OFF;
+                }
+
+            case KC_LSFT:
+            case KC_RSFT:
+                if (ctrl_layer_cmd_active) {
+                    // SHIFT key color when in CMD mode and SHIFT is off
+                    return ctrl_layer_shift_active ? 
+                        (rgb_color)COLOR_SHIFT : 
+                        (rgb_color)COLOR_CMD_SHIFT_ALPHA_OFF;
+                } else {
+                    // SHIFT key color when in CTRL mode and SHIFT is off
+                    return ctrl_layer_shift_active ? 
+                        (rgb_color)COLOR_SHIFT : 
+                        (rgb_color)COLOR_CTRL_SHIFT_ALPHA_OFF;
+                }
+
+            case KC_LEFT_GUI:
+            case KC_RIGHT_GUI:
+                if (ctrl_layer_cmd_active) {
+                    return (rgb_color)COLOR_CMD_ALPHA;
+                } else {
+                    return (rgb_color)COLOR_CMD_ALPHA_OFF;
+                }
+            case KC_LEFT_CTRL:
+            case KC_RIGHT_CTRL:
+            case KC_TRANSPARENT:
+                if (ctrl_layer_cmd_active) {
+                    return (rgb_color)COLOR_CTRL_ALPHA_OFF;
+                } else {
+                    return (rgb_color)COLOR_CTRL_ALPHA;
+                }
+        }
+    }
+    
+
     if (keycode >= KC_F1 && keycode <= KC_F12) {
         return (rgb_color)COLOR_FUNCTION;
     }
     // Handle shift keys and modifiers
     if (keycode == KC_LSFT || keycode == KC_RSFT || 
         (IS_QK_MOD_TAP(keycode) && ((QK_MOD_TAP_GET_MODS(keycode) & MOD_MASK_SHIFT) == MOD_MASK_SHIFT))) {
-        if (layer == CTRL) {
-            // No color (off) for transparent keys in base layer
-            return (rgb_color){0, 0, 0};
-        }
-
         return (rgb_color)COLOR_SHIFT;
     }
 
