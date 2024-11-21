@@ -61,15 +61,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
         KC_GRAVE,                  KC_1,            KC_2,                 KC_3,                 KC_4,                KC_5,    KC_LESS_THAN,             KC_MORE_THAN,         KC_6,               KC_7,               KC_8,             KC_9,            KC_0,             KC_BACKSPACE,
         KC_TAB,                    KC_Q,            KC_W,                 KC_E,                 KC_R,                KC_T,    KC_MINUS,                 KC_EQUAL,             KC_Y,               KC_U,               KC_I,             KC_O,            KC_P,             KC_MINUS,
-        LT(NUM, KC_ESCAPE),                 KC_A,            KC_S,                 KC_D,                 KC_F,                KC_G,    KC_LEFT_BRACKET,          KC_RIGHT_BRACKET,     KC_H,               KC_J,               KC_K,             KC_L,            KC_SEMICOLON,     KC_QUOTE,
+        LT(CTRL, KC_ESCAPE),                 KC_A,            KC_S,                 KC_D,                 KC_F,                KC_G,    KC_LEFT_BRACKET,          KC_RIGHT_BRACKET,     KC_H,               KC_J,               KC_K,             KC_L,            KC_SEMICOLON,     KC_QUOTE,
         KC_LSFT,                   KC_Z,            KC_X,                 KC_C,                 KC_V,                KC_B,                                                    KC_N,               KC_M,               KC_COMM,          KC_DOT,          KC_SLASH,         KC_BACKSLASH,
         KC_LEFT_CTRL,              KC_LEFT_GUI,     KC_LEFT_ALT,          KC_DOWN,              KC_UP,            SGUI(KC_4),                 KC_PRINT_SCREEN,                 KC_LEFT,            KC_RIGHT,           KC_LEFT_ALT,    KC_LEFT_GUI,       KC_LEFT_CTRL,
                                                                                        KC_SPC,  MO(NAV), _______,        _______,  MO(CTRL),  KC_ENT
     ),
 
     [NAV] = LAYOUT(
-        KC_F12,        KC_F1,             KC_F2,               KC_F3,                 KC_F4,              KC_F5,            _______,             _______,          KC_F6,             KC_F7,                KC_F8,                KC_F9,                 KC_F10,              KC_F11,
-        _______,       KC_ESCAPE,         _______,             _______,               _______,            _______,          _______,           _______,            _______,           KC_C,                 KC_V,                  KC_X,                 KC_Z,                _______,
+        _______,        KC_F1,             KC_F2,               KC_F3,                 KC_F4,              KC_F5,            _______,             _______,          KC_F6,             KC_F7,                KC_F8,                KC_F9,                 KC_F10,              KC_F11,
+        _______,       KC_ESCAPE,         _______,             _______,               _______,            _______,          _______,           _______,            _______,           KC_C,                 KC_V,                  KC_X,                 KC_Z,                KC_F12,
         _______,       KC_LSFT,           KC_LEFT_ALT,         KC_LEFT_CTRL,           KC_LEFT_GUI,        _______,          _______,       _______,               KC_LEFT,           KC_DOWN,              KC_UP,                 KC_RIGHT,             _______,          _______,
         _______,       _______,           _______,             KC_PAGE_UP,             KC_PAGE_DOWN,            _______,                                           _______,           KC_BACKSPACE,         KC_BACKSPACE_WORD,     KC_TAB,               KC_DELETE,        _______,        
         _______,       _______,           _______,             _______,               _______,       _______,                                             _______,                    _______,         _______,                _______,            _______,              _______,
@@ -84,10 +84,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                              _______, _______, _______,                      _______, _______, _______
     ),
     [CTRL] = LAYOUT(
-        KC_F12,                  KC_F1,           KC_F2,                KC_F3,                KC_F4,               KC_F5,   _______,                  _______,          KC_F6,             KC_F7,                KC_F8,                KC_F9,                 KC_F10,              KC_F11,
-        KC_TAB,                  KC_Q,            KC_W,                 KC_E,                 KC_R,                KC_T,    KC_MINUS,                 KC_PLUS,             KC_Y,               KC_U,               KC_I,             KC_O,            KC_P,             KC_QUOTE,
-        TO(BASE),                KC_A,            KC_S,                 KC_D,                 KC_F,                KC_G,    KC_LEFT_BRACKET,          KC_RIGHT_BRACKET,     KC_H,               KC_J,               KC_K,             KC_L,            KC_SEMICOLON,     KC_ENT,
-        _______,                 KC_Z,            KC_X,                 KC_C,                 KC_V,                KC_B,                                                    KC_N,               KC_M,               KC_COMM,          KC_DOT,          KC_SLASH,         KC_BACKSLASH,
+        KC_LEFT_GUI,                  KC_F1,           KC_F2,                KC_F3,                KC_F4,               KC_F5,   _______,                  _______,          KC_F6,             KC_F7,                KC_F8,                KC_F9,                 KC_F10,              KC_F11,
+        KC_LEFT_ALT,                  KC_Q,            KC_W,                 KC_E,                 KC_R,                KC_T,    KC_MINUS,                 KC_PLUS,             KC_Y,               KC_U,               KC_I,             KC_O,            KC_P,             KC_F12,
+        _______,                KC_A,            KC_S,                 KC_D,                 KC_F,                KC_G,    KC_LEFT_BRACKET,          KC_RIGHT_BRACKET,     KC_H,               KC_J,               KC_K,             KC_L,            KC_SEMICOLON,     KC_LEFT_GUI,
+        KC_LSFT,                 KC_Z,            KC_X,                 KC_C,                 KC_V,                KC_B,                                                    KC_N,               KC_M,               KC_COMM,          KC_DOT,          KC_SLASH,         KC_BACKSLASH,
         _______,                 KC_LEFT_GUI,     KC_LEFT_ALT,          KC_DOWN,              KC_UP,                        KC_NO,                 KC_NO,                 KC_LEFT,            KC_RIGHT,           KC_LEFT_ALT,    KC_LEFT_GUI,       KC_LEFT_CTRL,
                                                                                                       KC_SPC,  KC_KB_VOLUME_DOWN, _______,        _______,  KC_KB_VOLUME_UP,  KC_LSFT
     ),
@@ -126,11 +126,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
             if (IS_LAYER_ON(CTRL)) {
                 switch (keycode) {
-                    case KC_TAB: // Use COMMAND modifier for the next key press
+                    case KC_LEFT_GUI: // Use COMMAND modifier for the next key press
                         ctrl_layer_cmd_active = !ctrl_layer_cmd_active;
                         return false;
 
-                    case KC_SPACE: // Toggle ALT modifier
+                    case KC_LEFT_ALT: // Toggle ALT modifier
                         ctrl_layer_alt_active = !ctrl_layer_alt_active;
                         return false;
 
@@ -212,6 +212,15 @@ void keyboard_post_init_user(void) {
 #define COLOR_CMD_ALT_ALPHA    HEX_TO_RGB(0xBFFF1F)     // brigh green
 #define COLOR_CMD_ALT_SHIFT_ALPHA    HEX_TO_RGB(0xFF1F7C)     // bright purple
 
+#define COLOR_CTRL_ALPHA_OFF    HEX_TO_RGB(0x975D31)     // orange
+#define COLOR_CTRL_SHIFT_ALPHA_OFF    HEX_TO_RGB(0x22295C)     // purple
+#define COLOR_CTRL_ALT_ALPHA_OFF    HEX_TO_RGB(0x6C5408)     // orange
+#define COLOR_CTRL_ALT_SHIFT_ALPHA_OFF    HEX_TO_RGB(0x5C0F2F)     // red
+
+#define COLOR_CMD_ALPHA_OFF    HEX_TO_RGB(0x683209)     // light blue
+#define COLOR_CMD_SHIFT_ALPHA_OFF    HEX_TO_RGB(0x0A2257)     // light purple
+#define COLOR_CMD_ALT_ALPHA_OFF    HEX_TO_RGB(0x465E0A)     // brigh green
+#define COLOR_CMD_ALT_SHIFT_ALPHA_OFF    HEX_TO_RGB(0x5A0A2D)     // bright purple
 
 #define COLOR_LAYER    HEX_TO_RGB(0x6130ff)     // bright purple
 #define COLOR_HOMEROW  HEX_TO_RGB(0xfffb46)     // bright yellow
@@ -260,6 +269,11 @@ rgb_color get_key_color(uint16_t keycode, uint8_t row, uint8_t col, uint8_t laye
     // Handle shift keys and modifiers
     if (keycode == KC_LSFT || keycode == KC_RSFT || 
         (IS_QK_MOD_TAP(keycode) && ((QK_MOD_TAP_GET_MODS(keycode) & MOD_MASK_SHIFT) == MOD_MASK_SHIFT))) {
+        if (layer == CTRL) {
+            // No color (off) for transparent keys in base layer
+            return (rgb_color){0, 0, 0};
+        }
+
         return (rgb_color)COLOR_SHIFT;
     }
 
