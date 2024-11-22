@@ -21,7 +21,11 @@
 #define ORYX_CONFIGURATOR
 
 #define TAPPING_TERM 175
-#define QUICK_TAP_TERM 0
+#define TAPPING_TERM_PER_KEY
+
+#define QUICK_TAP_TERM 50
+
+// #define TAPPING_FORCE_HOLD
 
 // RGB Matrix Startup Configuration
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
@@ -30,3 +34,5 @@
 #define RGB_MATRIX_STARTUP_VAL 0
 
 #define DRIVER_LED_TOTAL 72
+
+

@@ -36,6 +36,10 @@ combo_t                key_combos[] = {
 };
 // ------------- END COMBO ---------------
 
+
+
+#include "tap_dance.h"
+
 // -----------------------------------
 // -----------------------------------
 #include "process_record_user.h"
@@ -44,17 +48,17 @@ combo_t                key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        KC_GRAVE,                  KC_1,                      KC_2,                      KC_3,                      KC_4,                      KC_5,                       KC_LESS_THAN,             KC_MORE_THAN,              KC_6,                      KC_7,                      KC_8,                       KC_9,                     KC_0,                       KC_BACKSPACE,
+        KC_GRAVE,                   KC_1,                      KC_2,                      KC_3,                      KC_4,                      KC_5,                       KC_LESS_THAN,             KC_MORE_THAN,              KC_6,                      KC_7,                      KC_8,                       KC_9,                     KC_0,                       KC_BACKSPACE,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         KC_TAB,                    KC_Q,                      KC_W,                      KC_E,                      KC_R,                      KC_T,                       KC_MINUS,                 KC_EQUAL,                  KC_Y,                      KC_U,                      KC_I,                       KC_O,                     KC_P,                       KC_MINUS,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        LT(CTRL, KC_ESCAPE),       KC_A,                      KC_S,                      KC_D,                      KC_F,                      KC_G,                       KC_LEFT_BRACKET,          KC_RIGHT_BRACKET,          KC_H,                      KC_J,                      KC_K,                       KC_L,                     KC_SEMICOLON,               KC_QUOTE,
+        KC_ESCAPE,                 KC_A,                      KC_S,                      KC_D,                      KC_F,                      KC_G,                       KC_LEFT_BRACKET,          KC_RIGHT_BRACKET,          KC_H,                      KC_J,                      KC_K,                       KC_L,                     KC_SEMICOLON,               KC_QUOTE,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         KC_LSFT,                   KC_Z,                      KC_X,                      KC_C,                      KC_V,                      KC_B,                                                                            KC_N,                      KC_M,                      KC_COMM,                    KC_DOT,                   KC_SLASH,                   KC_BACKSLASH,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         KC_LEFT_CTRL,              KC_LEFT_GUI,               KC_LEFT_ALT,               KC_DOWN,                   KC_UP,                                                 SGUI(KC_4),               KC_PRINT_SCREEN,                                      KC_LEFT,                   KC_RIGHT,                   KC_LEFT_ALT,              KC_LEFT_GUI,                KC_LEFT_CTRL,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
-                                                                                                                    KC_SPC,                    MO(NAV),                   _______,                   _______,                   KC_LSFT,                   KC_ENT
+                                                                                                                    KC_SPC,                    MO(NAV),                    _______,                  TD(QUOT_LAYR),             MO(NAV),                   KC_ENT
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
     ),
 
@@ -88,13 +92,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                                                                         _______,         _______,         _______,                   _______,         _______,         _______
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
     ),
-    [CTRL] = LAYOUT(
+    [_CUSTOM_MOD] = LAYOUT(
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         _______,                   KC_F1,                     KC_F2,                     KC_F3,                     KC_F4,                     KC_F5,                     KC_NO,                     KC_NO,                     KC_F6,                     KC_F7,                     KC_F8,                     KC_F9,                     KC_F10,                    KC_F11,
      //|--------------    ---------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
         _______,                   KC_Q,                      KC_W,                      KC_E,                      KC_R,                      KC_T,                      KC_MINUS,                  KC_PLUS,                   KC_Y,                      KC_U,                      KC_I,                      KC_O,                      KC_P,                      KC_F12,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
-        _______,                   KC_LSFT,                   KC_LEFT_ALT,               KC_LEFT_CTRL,              KC_LEFT_GUI,               KC_G,                      KC_LEFT_BRACKET,           KC_RIGHT_BRACKET,          KC_H,                      KC_J,                      KC_K,                      KC_L,                      KC_SEMICOLON,              KC_LEFT_GUI,
+        TO(BASE),                  KC_LSFT,                   KC_LEFT_ALT,               KC_LEFT_CTRL,              KC_LEFT_GUI,               KC_G,                      KC_LEFT_BRACKET,           KC_RIGHT_BRACKET,          KC_H,                      KC_J,                      KC_K,                      KC_L,                      KC_SEMICOLON,              KC_LEFT_GUI,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
         KC_LSFT,                   KC_Z,                      KC_X,                      KC_C,                      KC_V,                      KC_B,                                                                            KC_N,                      KC_M,                      KC_COMM,                   KC_DOT,                    KC_SLASH,                  KC_BACKSLASH,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
@@ -206,6 +210,10 @@ static inline rgb_color hsb_to_rgb(hsb_color hsb) {
 }
 
 hsb_color get_color_based_on_mod_status(bool is_mod_state, bool is_toggled_on, hsb_color color) {
+    if (is_on_mod_selector_layer()) {
+        return is_toggled_on ?(hsb_color){color.h, color.s, 100} :(hsb_color){color.h, color.s, 5};
+    }
+
     if (!is_mod_state) {
         return (hsb_color){color.h, color.s, 30};
     }
@@ -231,19 +239,19 @@ hsb_color get_key_color(uint16_t keycode, uint8_t row, uint8_t col, uint8_t laye
         switch (keycode) {
             case KC_LEFT_ALT:
             case KC_RIGHT_ALT:
-                return get_color_based_on_mod_status(is_any_mod_on(), is_alt_mod_on(), (hsb_color)COLOR_ALT);
+                return get_color_based_on_mod_status(is_custom_mod_on(), is_alt_mod_on(), (hsb_color)COLOR_ALT);
             case KC_LSFT:
             case KC_RSFT:
-                return get_color_based_on_mod_status(is_any_mod_on(), is_shift_mod_on(), (hsb_color)COLOR_SHIFT);
+                return get_color_based_on_mod_status(is_custom_mod_on(), is_shift_mod_on(), (hsb_color)COLOR_SHIFT);
             case KC_LEFT_GUI:
             case KC_RIGHT_GUI:
-                return get_color_based_on_mod_status(is_any_mod_on(), is_gui_mod_on(), (hsb_color)COLOR_GUI);
+                return get_color_based_on_mod_status(is_custom_mod_on(), is_gui_mod_on(), (hsb_color)COLOR_GUI);
             case KC_LEFT_CTRL:
             case KC_RIGHT_CTRL:
-                return get_color_based_on_mod_status(is_any_mod_on(), is_ctrl_mod_on(), (hsb_color)COLOR_CTRL);
+                return get_color_based_on_mod_status(is_custom_mod_on(), is_ctrl_mod_on(), (hsb_color)COLOR_CTRL);
             default:
                 if (!is_on_mod_selector_layer()) {
-                    return get_color_based_on_mod_status(is_any_mod_on(), false, (hsb_color)COLOR_MODIFIER);
+                    return get_color_based_on_mod_status(is_custom_mod_set(), false, (hsb_color)COLOR_MODIFIER);
                 }
         }
     }     
@@ -320,4 +328,81 @@ bool rgb_matrix_indicators_user(void) {
     }
     
     return false;
+}
+
+
+
+
+
+
+
+
+
+
+// Determine the current tap dance state
+td_state_t cur_dance(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (!state->pressed) return TD_SINGLE_TAP;
+        else return TD_SINGLE_HOLD;
+    } else if (state->count == 2) return TD_DOUBLE_TAP;
+    else return TD_UNKNOWN;
+}
+
+// Initialize tap structure associated with example tap dance key
+static td_tap_t ql_tap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+
+// Functions that control what our tap dance key does
+void ql_finished(tap_dance_state_t *state, void *user_data) {
+    ql_tap_state.state = cur_dance(state);
+    switch (ql_tap_state.state) {
+        case TD_SINGLE_TAP:
+            // tap_code16(MY_CUSTOM_MOD_TOGGLE);
+            ctrl_key_toggle = !ctrl_key_toggle;
+            break;
+        case TD_SINGLE_HOLD:
+            // layer_on(_CUSTOM_MOD);
+            ctrl_key_held = true;
+            break;
+        case TD_DOUBLE_TAP:
+            // Check to see if the layer is already set
+            if (layer_state_is(_CUSTOM_MOD)) {
+                // If already set, then switch it off
+                layer_off(_CUSTOM_MOD);
+            } else {
+                // If not already set, then switch the layer on
+                layer_on(_CUSTOM_MOD);
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+void ql_reset(tap_dance_state_t *state, void *user_data) {
+    // If the key was held down and now is released then switch off the layer
+    if (ql_tap_state.state == TD_SINGLE_HOLD) {
+        // layer_off(_CUSTOM_MOD);
+        ctrl_key_held = false;
+    } else if (ql_tap_state.state == TD_DOUBLE_TAP) {
+        layer_off(_CUSTOM_MOD);
+    }
+    ql_tap_state.state = TD_NONE;
+}
+
+// Associate our tap dance key with its functionality
+tap_dance_action_t tap_dance_actions[] = {
+    [QUOT_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset)
+};
+
+// Set a long-ish tapping term for tap-dance keys
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
+            return 175;
+        default:
+            return TAPPING_TERM;
+    }
 }

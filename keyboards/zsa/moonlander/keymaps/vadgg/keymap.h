@@ -3,8 +3,10 @@
 // Define custom keycodes
 enum custom_keycodes {
     VRSN = SAFE_RANGE,
-    MY_CTRL_TOGGLE,
+    MY_CUSTOM_MOD_TOGGLE,
+    MY_CUSTOM_MOD_HOLD,
 };
+
 
 // Convenience macros
 #define KC_VIM_END S(KC_4)
@@ -18,5 +20,6 @@ enum layers {
     BASE,  // default layer
     NAV,  // navidation
     NUM,  // numbers
-    CTRL
+    _CUSTOM_MOD
 };
+
