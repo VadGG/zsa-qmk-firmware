@@ -13,7 +13,7 @@ typedef struct {
 } td_tap_t;
 
 enum {
-    QUOT_LAYR, // Our custom tap dance key; add any other tap dance keys to this enum 
+    MY_CMOD, // Our custom tap dance key; add any other tap dance keys to this enum 
 };
 
 // Declare the functions to be used with your tap dance key(s)

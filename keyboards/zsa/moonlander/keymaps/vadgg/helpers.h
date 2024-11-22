@@ -2,8 +2,6 @@
 
 #include "keymap.h"
 
-
-
 bool ctrl_layer_ctrl_active = false;
 bool ctrl_layer_cmd_active = false;
 bool ctrl_layer_alt_active = false;
