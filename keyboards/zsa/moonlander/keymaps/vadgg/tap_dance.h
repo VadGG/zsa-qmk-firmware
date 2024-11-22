@@ -14,6 +14,7 @@ typedef struct {
 
 enum {
     MY_CMOD, // Our custom tap dance key; add any other tap dance keys to this enum 
+    TD_BACKSPACE,
 };
 
 // Declare the functions to be used with your tap dance key(s)
