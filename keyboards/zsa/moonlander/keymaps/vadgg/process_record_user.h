@@ -17,20 +17,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 active_num_layer();
             }
-
             return true;
-        default:
-            if (is_on_num_layer_active()) {
-                if (keycode < KC_1 || keycode > KC_0) {
-                    if (record->event.pressed) {
-                        tap_code16(keycode);
-                    }
-                    deactivate_num_layer();
-                    return false;
-                } 
+    }
 
+    if (is_on_num_layer_active()) {
+        switch(keycode) {
+            case KC_BACKSPACE:
+            case KC_1:
+            case KC_2:
+            case KC_3:
+            case KC_4:
+            case KC_5:
+            case KC_6:
+            case KC_7:
+            case KC_8:
+            case KC_9:
+            case KC_0:
+            case KC_COMM:
+            case KC_DOT:
+            case KC_EQUAL:
+            case KC_UNDERSCORE:
+            case KC_PERCENT:
+            case KC_NO:
                 return true;
-            }
+            default:
+                if (record->event.pressed) {
+                    tap_code16(keycode);
+                }
+                deactivate_num_layer();
+                return false;
+        }
+
     }
 
     if (is_on_mod_selector_layer()) {

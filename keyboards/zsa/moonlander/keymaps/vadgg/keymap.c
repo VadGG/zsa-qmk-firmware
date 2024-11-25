@@ -26,6 +26,8 @@
 
 // ------------- COMBO ---------------
 const uint16_t PROGMEM custom_esc[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM custom_tab[] = {KC_D, KC_S, COMBO_END};
+
 const uint16_t PROGMEM custom_enter[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM custom_colon[] = {KC_H, KC_J, COMBO_END};
 
@@ -40,6 +42,7 @@ const uint16_t PROGMEM arr_panic[] = {KC_UP, KC_DOWN, COMBO_END};
 
 combo_t                key_combos[] = {
     COMBO(custom_esc, KC_ESC),
+    COMBO(custom_tab, KC_TAB),
     COMBO(custom_enter, KC_ENT),
     COMBO(custom_colon, KC_COLON),
     COMBO(custom_backspace, KC_BACKSPACE),
@@ -113,17 +116,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NUM] = LAYOUT(
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        _______,                   KC_F1,                     KC_F2,                     KC_F3,                     KC_F4,                     KC_F5,                     KC_NO,                     KC_NO,                     KC_F6,                     KC_F7,                     KC_F8,                     KC_F9,                     KC_F10,                    KC_F11,
+        KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                    KC_NO,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        _______,                   _______,                   _______,                   KC_K,                      KC_PERCENT,                KC_J,                      _______,                   _______,                   _______,                   _______,                   KC_DOT,                    _______,                   KC_COMM,                   _______,
+        KC_NO,                     KC_NO,                     KC_NO,                     KC_K,                      KC_PERCENT,                KC_J,                      KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_DOT,                    KC_COMM,                   KC_BACKSPACE,              KC_NO,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
-        _______,                   KC_6,                      KC_4,                      KC_0,                      KC_2,                      _______,                   _______,                   _______,                   _______,                   KC_3,                      KC_1,                       KC_5,                     KC_7,                      _______,
+        KC_NO,                     KC_6,                      KC_4,                      KC_0,                      KC_2,                      KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_3,                      KC_1,                      KC_5,                      KC_7,                      KC_NO,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
-        _______,                   KC_KP_ASTERISK,            _______,                   LSFT(KC_G),                KC_8,                      _______,                                                                         KC_EQUAL,                  KC_9,                      _______,                    _______,                  KC_UNDERSCORE,             _______,
+        KC_NO,                     KC_KP_ASTERISK,            KC_NO,                     LSFT(KC_G),                KC_8,                      KC_NO,                                                                           KC_EQUAL,                  KC_9,                      KC_LEFT_BRACKET,           KC_LEFT_PAREN,             KC_RIGHT_PAREN,             KC_NO,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
-        _______,                   _______,                   _______,                   _______,                   _______,                                              _______,                   _______,                                              _______,                   _______,                    _______,                  _______,                   _______,
+        KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                                                KC_NO,                     KC_NO,                                                KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
-                                                                                                                    KC_SPC,                    TO_BASE,                   KC_NO,                     KC_NO,                     TO_BASE,                   KC_LSFT
+                                                                                                                    KC_SPC,                    TO_BASE,                   KC_NO,                     KC_NO,                     TO_BASE,                   TO_BASE
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
     ),
 
@@ -212,6 +215,8 @@ typedef struct {
 #define COLOR_MODIFIER  HSB(40, 93, 99)     // Orange
 #define COLOR_ARROW    HSB(353, 63, 69)     // Redwood
 #define COLOR_SYMBOL   HSB(112, 63, 79)     // Dark pastel green
+#define COLOR_BRACKET   HSB(150, 63, 79)     // 
+#define COLOR_OPERATOR   HSB(100, 63, 79)     // 
 #define COLOR_ESC      HSB(263, 53, 86)     // Purple
 #define COLOR_SPACE    HSB(47, 73, 95)      // Yellow
 
@@ -296,6 +301,10 @@ hsb_color reduce_brightness(hsb_color color, float percent_brightness) {
 
 hsb_color get_key_color(uint16_t keycode, uint8_t row, uint8_t col, uint8_t layer) {
     // Check for transparent keys
+    if (keycode == KC_NO) {
+        return (hsb_color)COLOR_OFF;
+    }
+
     if (keycode == KC_TRANSPARENT) {
         if (layer == BASE) {
             return (hsb_color)COLOR_TRANSPARENT_BASE;
@@ -353,6 +362,7 @@ hsb_color get_key_color(uint16_t keycode, uint8_t row, uint8_t col, uint8_t laye
         return (hsb_color)COLOR_OFF;
     }
 
+
     if (keycode >= KC_A && keycode <= KC_Z) {
         return (hsb_color)COLOR_ALPHA;
     }
@@ -364,7 +374,6 @@ hsb_color get_key_color(uint16_t keycode, uint8_t row, uint8_t col, uint8_t laye
     if (keycode >= KC_F1 && keycode <= KC_F12) {
         return (hsb_color)COLOR_FUNCTION;
     }
-
 
     switch (keycode) {
         case KC_LEFT:
@@ -387,10 +396,6 @@ hsb_color get_key_color(uint16_t keycode, uint8_t row, uint8_t col, uint8_t laye
         case KC_LT:
         case KC_GT:
             return (hsb_color)COLOR_SYMBOL;
-        case KC_MINS:
-        case KC_EQL:
-        case KC_LBRC:
-        case KC_RBRC:
         case KC_BSLS:
         case KC_SCLN:
         case KC_QUOT:
@@ -398,6 +403,19 @@ hsb_color get_key_color(uint16_t keycode, uint8_t row, uint8_t col, uint8_t laye
         case KC_DOT:
         case KC_SLSH:
             return (hsb_color)COLOR_SYMBOL;
+        case KC_LEFT_PAREN: 
+        case KC_RIGHT_PAREN: 
+        case KC_LEFT_CURLY_BRACE: 
+        case KC_RIGHT_CURLY_BRACE: 
+        case KC_LEFT_BRACKET: 
+        case KC_RIGHT_BRACKET: 
+            return (hsb_color)COLOR_BRACKET;
+        case KC_MINS:
+        case KC_PLUS:
+        case KC_EQUAL:
+        case KC_KP_ASTERISK:
+        case KC_PERCENT:
+            return (hsb_color)COLOR_OPERATOR;
         default:
             return (hsb_color)COLOR_UNKNOWN;
     }
