@@ -23,7 +23,7 @@
 #define TAPPING_TERM 175
 #define TAPPING_TERM_PER_KEY
 
-#define QUICK_TAP_TERM 50
+#define QUICK_TAP_TERM 0
 
 // #define TAPPING_FORCE_HOLD
 

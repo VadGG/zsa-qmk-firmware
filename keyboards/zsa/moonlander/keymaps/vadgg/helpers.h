@@ -10,8 +10,24 @@ bool ctrl_layer_shift_active = false;
 bool ctrl_key_held = false;
 bool ctrl_key_toggle = false;
 
+bool num_layer_active = false;
+
 bool is_on_mod_selector_layer(void) {
   return IS_LAYER_ON(_CUSTOM_MOD);
+}
+
+bool is_on_num_layer_active(void) {
+  return IS_LAYER_ON(_NUM) && num_layer_active;
+}
+
+void active_num_layer(void) {
+  layer_on(_NUM);
+  num_layer_active = true;
+}
+
+void deactivate_num_layer(void) {
+  layer_off(_NUM);
+  num_layer_active = false;
 }
 
 bool is_on_moddable_layer(void) {

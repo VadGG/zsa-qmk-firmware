@@ -12,6 +12,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     }
 
+    switch(keycode) {
+        case TO_NUM_LAYER:
+            if (record->event.pressed) {
+                active_num_layer();
+            }
+
+            return true;
+        default:
+            if (is_on_num_layer_active()) {
+                if (keycode < KC_1 || keycode > KC_0) {
+                    if (record->event.pressed) {
+                        tap_code16(keycode);
+                    }
+                    deactivate_num_layer();
+                    return false;
+                } 
+
+                return true;
+            }
+    }
+
     if (is_on_mod_selector_layer()) {
         if (record->event.pressed) {
                 switch (keycode) {

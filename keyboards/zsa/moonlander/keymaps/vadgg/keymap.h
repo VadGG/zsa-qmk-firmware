@@ -5,6 +5,7 @@ enum custom_keycodes {
     VRSN = SAFE_RANGE,
     MY_CUSTOM_MOD_TOGGLE,
     MY_CUSTOM_MOD_HOLD,
+    TO_NUM_LAYER,
 };
 
 
@@ -15,9 +16,14 @@ enum custom_keycodes {
 #define KC_MORE_THAN LSFT(KC_DOT)
 #define KC_BACKSPACE_WORD LALT(KC_BACKSPACE)
 
+#define TO_BASE TO(BASE)
+
 
 enum layers {
     BASE,  // default layer
+    _LMOD,
+    _RMOD,
+    _NUM,
     NAV,  // navidation
     NUM,  // numbers
     _CUSTOM_MOD
