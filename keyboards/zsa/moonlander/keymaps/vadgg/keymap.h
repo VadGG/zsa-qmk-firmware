@@ -6,6 +6,9 @@ enum custom_keycodes {
     MY_CUSTOM_MOD_TOGGLE,
     MY_CUSTOM_MOD_HOLD,
     TO_NUM_LAYER,
+    IN_GRAVE,
+
+    OPEN_BRACKET
 };
 
 

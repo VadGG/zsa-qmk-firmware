@@ -12,6 +12,7 @@ bool ctrl_key_toggle = false;
 
 bool num_layer_active = false;
 
+
 bool is_on_mod_selector_layer(void) {
   return IS_LAYER_ON(_CUSTOM_MOD);
 }
@@ -23,6 +24,13 @@ bool is_on_num_layer_active(void) {
 void active_num_layer(void) {
   layer_on(_NUM);
   num_layer_active = true;
+}
+
+void clear_mon_selectors(void) {
+  ctrl_layer_ctrl_active = false;
+  ctrl_layer_cmd_active = false;
+  ctrl_layer_alt_active = false;
+  ctrl_layer_shift_active = false;
 }
 
 void deactivate_num_layer(void) {

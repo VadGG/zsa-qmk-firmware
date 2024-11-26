@@ -3,16 +3,25 @@
 #include "helpers.h"
 #include "processors/functions_record_user.h"
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-            case VRSN:
-                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-                return false;
-        }
-    }
 
+void triple_tap(uint16_t keycode) {
+    tap_code16(keycode);
+    tap_code16(keycode);
+    tap_code16(keycode);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
+        case OPEN_BRACKET:
+            if (record->event.pressed) {
+                tap_code16(KC_LEFT_BRACKET);
+                tap_code16(KC_RIGHT_BRACKET);
+                tap_code16(KC_LEFT);
+                // send_string("[]");
+                return false;
+            }
+            break;
+         // triple_tap(KC_GRAVE);
         case TO_NUM_LAYER:
             if (record->event.pressed) {
                 active_num_layer();

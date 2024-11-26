@@ -16,17 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
+#include <stdint.h>
 
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include "keymap.h"
 #include "helpers.h"
 
+static inline uint8_t min(uint8_t a, float b) {
+    return (b < a) ? (uint8_t)b : a;
+}
 
 // ------------- COMBO ---------------
-const uint16_t PROGMEM custom_esc[] = {KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM custom_tab[] = {KC_D, KC_S, COMBO_END};
+const uint16_t PROGMEM custom_esc[] = {KC_D, KC_S, COMBO_END};
+// const uint16_t PROGMEM custom_tab[] = {KC_D, KC_S, COMBO_END};
 
 const uint16_t PROGMEM custom_enter[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM custom_colon[] = {KC_H, KC_J, COMBO_END};
@@ -42,7 +45,7 @@ const uint16_t PROGMEM arr_panic[] = {KC_UP, KC_DOWN, COMBO_END};
 
 combo_t                key_combos[] = {
     COMBO(custom_esc, KC_ESC),
-    COMBO(custom_tab, KC_TAB),
+    // COMBO(custom_tab, KC_TAB),
     COMBO(custom_enter, KC_ENT),
     COMBO(custom_colon, KC_COLON),
     COMBO(custom_backspace, KC_BACKSPACE),
@@ -71,13 +74,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         KC_TAB,                    KC_Q,                      KC_W,                      KC_E,                      KC_R,                      KC_T,                       KC_MINUS,                 KC_EQUAL,                  KC_Y,                      KC_U,                      KC_I,                       KC_O,                     KC_P,                       KC_MINUS,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        LT(NUM, KC_ESCAPE),        KC_A,                      KC_S,                      KC_D,                      KC_F,                      KC_G,                       KC_LEFT_BRACKET,          KC_RIGHT_BRACKET,          KC_H,                      KC_J,                      KC_K,                       KC_L,                     KC_SEMICOLON,               KC_QUOTE,
+        LT(NUM, KC_ESCAPE),        KC_A,                      KC_S,                      KC_D,                      KC_F,                      KC_G,                       TD(TD_LEFT_BRACKET),      KC_RIGHT_BRACKET,          KC_H,                      KC_J,                      KC_K,                       KC_L,                     KC_SEMICOLON,               KC_QUOTE,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         TD(MY_CMOD),               KC_Z,                      KC_X,                      KC_C,                      KC_V,                      KC_B,                                                                            KC_N,                      KC_M,                      KC_COMM,                    KC_DOT,                   KC_SLASH,                   KC_BACKSLASH,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         KC_LEFT_CTRL,              KC_LEFT_GUI,               KC_LEFT_ALT,               KC_DOWN,                   KC_UP,                                                 SGUI(KC_4),               KC_PRINT_SCREEN,                                      KC_LEFT,                   KC_RIGHT,                   KC_LEFT_ALT,              KC_LEFT_GUI,                KC_LEFT_CTRL,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
-                                                                                                                    KC_SPC,                    MO(_LMOD),                 KC_NO,                     KC_NO,                     MO(_RMOD),                   KC_LSFT
+                                                                                                                    KC_SPC,                    MO(_LMOD),                 KC_NO,                     KC_NO,                     MO(NAV),                   KC_LSFT
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
     ),
 
@@ -132,9 +135,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [NAV] = LAYOUT(
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        _______,                   KC_F1,                     KC_F2,                     KC_F3,                     KC_F4,                     KC_F5,                     _______,                   _______,                   KC_F6,                     KC_F7,                     KC_F8,                     KC_F9,                     KC_F10,                    KC_F11,
+        KC_F12,                    KC_F1,                     KC_F2,                     KC_F3,                     KC_F4,                     KC_F5,                     _______,                   _______,                   KC_F6,                     KC_F7,                     KC_F8,                     KC_F9,                     KC_F10,                     KC_F11,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        _______,                   KC_ESCAPE,                 _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   TD(TD_BACKSPACE),          LSFT(KC_TAB),              KC_TAB,                    KC_MINUS,                  KC_PLUS,                   KC_F12,
+        _______,                   KC_ESCAPE,                 _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   TD(TD_BACKSPACE),          LSFT(KC_TAB),              KC_TAB,                    KC_MINUS,                  KC_PLUS,                   _______,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         _______,                   _______,                   KC_LSFT,                   KC_LEFT_ALT,               KC_LEFT_CTRL,               KC_LEFT_GUI,              _______,                   _______,                   KC_LEFT,                   KC_DOWN,                   KC_UP,                     KC_RIGHT,                  _______,                   _______,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
@@ -232,10 +235,10 @@ typedef struct {
 #define COLOR_LAYER    HSB(255, 81, 100)     // Bright purple
 #define COLOR_HOMEROW  HSB(59, 72, 100)      // Bright yellow
 
-#define COLOR_SHIFT    HSB(230, 88, 100)     // Purple
-#define COLOR_ALT      HSB(45, 88, 100)      // Orangish yellow
-#define COLOR_CTRL     HSB(28, 88, 100)      // Orange
-#define COLOR_GUI      HSB(190, 88, 100)     // Light blue
+#define COLOR_SHIFT    HSB(200, 88, 100)     // Blue
+#define COLOR_ALT      HSB(120, 88, 100)      // Orangish yellow
+#define COLOR_CTRL     HSB(5, 88, 100)      // Orange
+#define COLOR_GUI      HSB(55, 88, 100)     // Light blue
 
 #define COLOR_UNKNOWN      HSB(0, 0, 100)     // White
 
@@ -282,7 +285,7 @@ static inline rgb_color hsb_to_rgb(hsb_color hsb) {
     return rgb;
 }
 
-hsb_color get_color_based_on_mod_status(bool is_mod_state, bool is_toggled_on, hsb_color color) {
+hsb_color get_mod_color_based_on_mod_status(bool is_mod_state, bool is_toggled_on, hsb_color color) {
     if (is_on_mod_selector_layer()) {
         return is_toggled_on ?(hsb_color){color.h, color.s, 100} :(hsb_color){color.h, color.s, 5};
     }
@@ -298,84 +301,31 @@ hsb_color get_color_based_on_mod_status(bool is_mod_state, bool is_toggled_on, h
 hsb_color reduce_brightness(hsb_color color, float percent_brightness) {
     return (hsb_color){color.h, color.s, color.b * percent_brightness};
 }
+// Helper function to blend HSB colors
+hsb_color blend_hsb_colors(hsb_color base_color, hsb_color mod_color) {
+    // Average the hues
+    uint16_t avg_hue = (base_color.h * 0.1 + mod_color.h * 0.9);
+    
+    // Keep base color's saturation, but increase brightness
+    uint8_t blended_saturation = base_color.s;
+    uint8_t blended_brightness = min(255, base_color.b * 2); // 50% brighter
+    
+    return (hsb_color){
+        .h = (uint8_t)avg_hue,
+        .s = blended_saturation,
+        .b = blended_brightness
+    };
+}
 
-hsb_color get_key_color(uint16_t keycode, uint8_t row, uint8_t col, uint8_t layer) {
-    // Check for transparent keys
-    if (keycode == KC_NO) {
-        return (hsb_color)COLOR_OFF;
-    }
-
-    if (keycode == KC_TRANSPARENT) {
-        if (layer == BASE) {
-            return (hsb_color)COLOR_TRANSPARENT_BASE;
-        } else {
-            return (hsb_color)COLOR_TRANSPARENT_OTHER;
-        }
-    }
-
-    if (IS_QK_LAYER_TAP(keycode) || IS_QK_TO(keycode) || IS_QK_MOMENTARY(keycode)) {
-        return (hsb_color)COLOR_LAYER;
-    }
-
-    if (is_modifier_key(keycode)) {
-        switch (keycode) {
-            case KC_LEFT_ALT:
-            case KC_RIGHT_ALT:
-                return get_color_based_on_mod_status(is_custom_mod_on(), is_alt_mod_on(), (hsb_color)COLOR_ALT);
-            case KC_LSFT:
-            case KC_RSFT:
-                return get_color_based_on_mod_status(is_custom_mod_on(), is_shift_mod_on(), (hsb_color)COLOR_SHIFT);
-            case KC_LEFT_GUI:
-            case KC_RIGHT_GUI:
-                return get_color_based_on_mod_status(is_custom_mod_on(), is_gui_mod_on(), (hsb_color)COLOR_GUI);
-            case KC_LEFT_CTRL:
-            case KC_RIGHT_CTRL:
-                return get_color_based_on_mod_status(is_custom_mod_on(), is_ctrl_mod_on(), (hsb_color)COLOR_CTRL);
-            default:
-                if (!is_on_mod_selector_layer()) {
-                    return get_color_based_on_mod_status(is_custom_mod_set(), false, (hsb_color)COLOR_MODIFIER);
-                }
-        }
-    }     
-
-    if (layer == BASE) {
-        switch(keycode){
-            case KC_J:
-            case KC_K:
-                return (hsb_color)COLOR_ENTER;
-            case KC_D:
-            case KC_F:
-                return (hsb_color)COLOR_ESC;
-            case KC_O:
-            case KC_P:
-                return (hsb_color)COLOR_BACKSPACE;
-            case KC_I:
-                return reduce_brightness((hsb_color)COLOR_BACKSPACE, 0.2);
-            case KC_W:
-            case KC_E:
-            case KC_R:
-                return (hsb_color)COLOR_DELETE;
-        }
-    }
-
-    if (is_on_mod_selector_layer()) {
-        return (hsb_color)COLOR_OFF;
-    }
-
-
-    if (keycode >= KC_A && keycode <= KC_Z) {
-        return (hsb_color)COLOR_ALPHA;
-    }
-
-    if (keycode >= KC_1 && keycode <= KC_0) {
-        return (hsb_color)COLOR_NUMBER;
-    }
-
-    if (keycode >= KC_F1 && keycode <= KC_F12) {
-        return (hsb_color)COLOR_FUNCTION;
-    }
-
+// Function to get the base color for a key without mod blending
+hsb_color get_base_key_color(uint16_t keycode, uint8_t layer) {
     switch (keycode) {
+        case KC_A ... KC_Z:
+            return (hsb_color)COLOR_ALPHA;
+        case KC_1 ... KC_0:
+            return (hsb_color)COLOR_NUMBER;
+        case KC_F1 ... KC_F12:
+            return (hsb_color)COLOR_FUNCTION;
         case KC_LEFT:
         case KC_RIGHT:
         case KC_UP:
@@ -419,9 +369,104 @@ hsb_color get_key_color(uint16_t keycode, uint8_t row, uint8_t col, uint8_t laye
         default:
             return (hsb_color)COLOR_UNKNOWN;
     }
+}
+
+// Function to get the final key color, potentially blending with modifier
+hsb_color get_key_color(uint16_t keycode, uint8_t row, uint8_t col, uint8_t layer) {
+    // Check for transparent keys
+    if (keycode == KC_NO) {
+        return (hsb_color)COLOR_OFF;
+    }
+
+    if (keycode == KC_TRANSPARENT) {
+        if (layer == BASE) {
+            return (hsb_color)COLOR_TRANSPARENT_BASE;
+        } else {
+            return (hsb_color)COLOR_TRANSPARENT_OTHER;
+        }
+    }
+
+    // Modifier key handling remains the same
+    if (is_modifier_key(keycode)) {
+        switch (keycode) {
+            case KC_LEFT_ALT:
+            case KC_RIGHT_ALT:
+                return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_alt_mod_on(), (hsb_color)COLOR_ALT);
+            case KC_LSFT:
+            case KC_RSFT:
+                return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_shift_mod_on(), (hsb_color)COLOR_SHIFT);
+            case KC_LEFT_GUI:
+            case KC_RIGHT_GUI:
+                return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_gui_mod_on(), (hsb_color)COLOR_GUI);
+            case KC_LEFT_CTRL:
+            case KC_RIGHT_CTRL:
+                return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_ctrl_mod_on(), (hsb_color)COLOR_CTRL);
+            default:
+                if (!is_on_mod_selector_layer()) {
+                    return get_mod_color_based_on_mod_status(is_custom_mod_set(), false, (hsb_color)COLOR_MODIFIER);
+                }
+        }
+    }     
+
+    if (is_on_mod_selector_layer()) {
+        return (hsb_color)COLOR_OFF;
+    }
+
+    if (layer == BASE) {
+        switch(keycode){
+            case KC_J:
+            case KC_K:
+                return (hsb_color)COLOR_ENTER;
+            case KC_S:
+            case KC_D:
+                return (hsb_color)COLOR_ESC;
+            case KC_O:
+            case KC_P:
+                return (hsb_color)COLOR_BACKSPACE;
+            case KC_I:
+                return reduce_brightness((hsb_color)COLOR_BACKSPACE, 0.2);
+            case KC_W:
+            case KC_E:
+            case KC_R:
+                return (hsb_color)COLOR_DELETE;
+        }
+    }
 
 
-    return (hsb_color)COLOR_NORMAL;
+    // Proceed with existing color selection logic for non-blended cases
+    if (IS_QK_LAYER_TAP(keycode) || IS_QK_TO(keycode) || IS_QK_MOMENTARY(keycode)) {
+        return (hsb_color)COLOR_LAYER;
+    }
+
+    // Custom mod color blending logic
+    if (is_custom_mod_on()) {
+        hsb_color base_color = get_base_key_color(keycode, layer);
+        hsb_color mod_color = (hsb_color){0};
+        bool has_mod_color = false;
+
+        // Check which modifier is on and set mod color accordingly
+        if (is_alt_mod_on()) {
+            mod_color = (hsb_color)COLOR_ALT;
+            has_mod_color = true;
+        } else if (is_shift_mod_on()) {
+            mod_color = (hsb_color)COLOR_SHIFT;
+            has_mod_color = true;
+        } else if (is_ctrl_mod_on()) {
+            mod_color = (hsb_color)COLOR_CTRL;
+            has_mod_color = true;
+        } else if (is_gui_mod_on()) {
+            mod_color = (hsb_color)COLOR_GUI;
+            has_mod_color = true;
+        }
+
+        // If a modifier is active, blend the colors
+        if (has_mod_color) {
+            return blend_hsb_colors(base_color, mod_color);
+        }
+    }
+
+    // Get base key color for all other cases
+    return get_base_key_color(keycode, layer);
 }
 
 bool rgb_matrix_indicators_user(void) {
@@ -475,14 +520,17 @@ void ql_finished(tap_dance_state_t *state, void *user_data) {
     switch (ql_tap_state.state) {
         case TD_SINGLE_TAP:
             // tap_code16(MY_CUSTOM_MOD_TOGGLE);
-            ctrl_key_toggle = !ctrl_key_toggle;
+            if (!is_custom_mod_set()) {
+                ctrl_key_toggle = false;
+            } else {
+                ctrl_key_toggle = !ctrl_key_toggle;
+            }
             break;
         case TD_SINGLE_HOLD:
             // layer_on(_CUSTOM_MOD);
-            ctrl_key_held = true;
-            break;
-        case TD_DOUBLE_TAP:
-            // Check to see if the layer is already set
+            ctrl_key_held = false;
+            clear_mon_selectors();
+
             if (layer_state_is(_CUSTOM_MOD)) {
                 // If already set, then switch it off
                 layer_off(_CUSTOM_MOD);
@@ -490,6 +538,8 @@ void ql_finished(tap_dance_state_t *state, void *user_data) {
                 // If not already set, then switch the layer on
                 layer_on(_CUSTOM_MOD);
             }
+            break;
+        case TD_DOUBLE_TAP:
             break;
         default:
             break;
@@ -499,23 +549,50 @@ void ql_finished(tap_dance_state_t *state, void *user_data) {
 void ql_reset(tap_dance_state_t *state, void *user_data) {
     // If the key was held down and now is released then switch off the layer
     if (ql_tap_state.state == TD_SINGLE_HOLD) {
-        // layer_off(_CUSTOM_MOD);
-        ctrl_key_held = false;
-    } else if (ql_tap_state.state == TD_DOUBLE_TAP) {
         layer_off(_CUSTOM_MOD);
+        ctrl_key_toggle = is_custom_mod_set();
+    } else if (ql_tap_state.state == TD_DOUBLE_TAP) {
+        // layer_off(_CUSTOM_MOD);
     }
     ql_tap_state.state = TD_NONE;
 }
 
+static bool left_bracket_held = false; // Tracks if the key is held
+
+void td_left_bracket_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+         if (!state->pressed) {
+            // Single tap sends [
+            tap_code16(KC_LEFT_BRACKET);
+        } else {
+            // Single hold starts sending [
+            left_bracket_held = true;
+            register_code(KC_LEFT_BRACKET);
+        }
+    } else if (state->count == 2) {
+        process_record_user(OPEN_BRACKET, &(keyrecord_t){.event = {.pressed = true}});
+        process_record_user(OPEN_BRACKET, &(keyrecord_t){.event = {.pressed = false}});
+    }
+}
+
+void td_left_bracket_reset(tap_dance_state_t *state, void *user_data) {
+    if (left_bracket_held) {
+        unregister_code(KC_LEFT_BRACKET);
+        left_bracket_held = false;
+    }
+}
 // Associate our tap dance key with its functionality
 tap_dance_action_t tap_dance_actions[] = {
     [MY_CMOD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset),
     [TD_BACKSPACE] = ACTION_TAP_DANCE_DOUBLE(KC_BACKSPACE, KC_BACKSPACE_WORD), 
+    [TD_LEFT_BRACKET] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_left_bracket_finished, td_left_bracket_reset),
 };
 
 // Set a long-ish tapping term for tap-dance keys
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case MY_CMOD:
+            return 100;
         case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
             return 175;
         default:
