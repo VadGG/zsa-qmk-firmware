@@ -26,6 +26,15 @@
 #define QUICK_TAP_TERM 0
 
 // #define TAPPING_FORCE_HOLD
+// Combos
+// Optional per-combo timeout window. (default: COMBO_TERM)
+#undef COMBO_TERM
+#define COMBO_TERM 35
+//Controls if a given combo should fire only if tapped within COMBO_HOLD_TERM.
+#define COMBO_MUST_TAP_PER_COMBO
+#define COMBO_TERM_PER_COMBO
+// All combos are specified from the base layer, saves space
+#define COMBO_ONLY_FROM_LAYER 0
 
 // RGB Matrix Startup Configuration
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR

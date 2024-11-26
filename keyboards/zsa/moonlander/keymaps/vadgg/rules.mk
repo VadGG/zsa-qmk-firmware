@@ -5,6 +5,13 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes
 
+
+WPM_ENABLE = no
+EXTRAKEY_ENABLE = no
+MOUSEKEY_ENABLE = no
+KEY_OVERRIDE_ENABLE = no
+LEADER_ENABLE = no
+
 AUTO_SHIFT_ENABLE = no
 ORYX_ENABLE = no
 SPACE_CADET_ENABLE = no
