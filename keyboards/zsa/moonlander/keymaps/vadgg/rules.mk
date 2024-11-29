@@ -4,7 +4,7 @@ COMBO_ENABLE = yes
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes
-
+REPEAT_KEY_ENABLE = yes
 
 WPM_ENABLE = no
 EXTRAKEY_ENABLE = no
