@@ -139,6 +139,17 @@ hsb_color get_base_key_color(uint16_t keycode, uint8_t layer) {
             return (hsb_color)HSB(130, 90, BASE_BRIGHTNESS);
         case KC_F1 ... KC_F12:
             return (hsb_color)HSB(170, 90, LEVEL_1_BRIGHTNESS);
+        case DU_1F1:
+        case DU_2F2:
+        case DU_3F3:
+        case DU_4F4:
+        case DU_5F5:
+        case DU_6F6:
+        case DU_7F7:
+        case DU_8F8:
+        case DU_9F9:
+        case DU_0F10:
+            return (hsb_color)HSB(150, 70, LEVEL_1_BRIGHTNESS);
         case KC_LEFT:
         case KC_RIGHT:
         case KC_UP:

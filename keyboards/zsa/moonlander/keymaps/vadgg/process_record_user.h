@@ -47,6 +47,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case KC_EQUAL:
             case KC_UNDERSCORE:
             case KC_PERCENT:
+            case KC_ASTERISK:
+            case KC_EXCLAIM:
+            case KC_MINUS:
+            case KC_PLUS:
             case KC_NO:
                 return true;
             default:

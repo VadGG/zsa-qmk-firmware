@@ -21,21 +21,20 @@
 #include "version.h"
 #include "keymap.h"
 #include "helpers.h"
-#include "rgb.h"
 
 
 // ------------- COMBO ---------------
 // const uint16_t PROGMEM custom_esc[] = {KC_D, KC_S, COMBO_END};
 // const uint16_t PROGMEM custom_tab[] = {KC_D, KC_S, COMBO_END};
 
-// const uint16_t PROGMEM custom_enter[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM custom_enter[] = {KC_J, KC_K, COMBO_END};
 // const uint16_t PROGMEM custom_colon[] = {KC_H, KC_J, COMBO_END};
 
 // const uint16_t PROGMEM custom_backspace[] = {KC_O, KC_P, COMBO_END};
 // const uint16_t PROGMEM custom_backspace_word[] = {KC_I, KC_O, KC_P, COMBO_END};
 // const uint16_t PROGMEM custom_delete_word[] = {KC_W, KC_E, KC_R, COMBO_END};
 
-const uint16_t PROGMEM to_num[] = {KC_SPACE, KC_ENT, COMBO_END};
+const uint16_t PROGMEM to_num[] = {KC_SPACE, KC_LSFT, COMBO_END};
 
 const uint16_t PROGMEM qmk_boot[] = {KC_R, KC_TAB, COMBO_END};
 const uint16_t PROGMEM arr_panic[] = {KC_UP, KC_DOWN, COMBO_END};
@@ -43,7 +42,7 @@ const uint16_t PROGMEM arr_panic[] = {KC_UP, KC_DOWN, COMBO_END};
 combo_t                key_combos[] = {
     // COMBO(custom_esc, KC_ESC),
     // COMBO(custom_tab, KC_TAB),
-    // COMBO(custom_enter, KC_ENT),
+    COMBO(custom_enter, KC_ENT),
     // COMBO(custom_colon, KC_COLON),
     // COMBO(custom_backspace, KC_BACKSPACE),
     // COMBO(custom_backspace_word, KC_BACKSPACE_WORD),
@@ -67,9 +66,9 @@ combo_t                key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        KC_GRAVE,                  KC_1,                      KC_2,                      KC_3,                      KC_4,                      KC_5,                       KC_LESS_THAN,             KC_MORE_THAN,              KC_6,                      KC_7,                      KC_8,                       KC_9,                     KC_0,                       KC_BACKSPACE,
+        KC_GRAVE,                  DU_1F1,                    DU_2F2,                    DU_3F3,                    DU_4F4,                    DU_5F5,                    KC_F11,                    KC_F12,                    DU_6F6,                    DU_7F7,                    DU_8F8,                    DU_9F9,                    DU_0F10,                   KC_BACKSPACE,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        KC_TAB,                    KC_Q,                      KC_W,                      KC_E,                      KC_R,                      KC_T,                       KC_MINUS,                 KC_EQUAL,                  KC_Y,                      KC_U,                      KC_I,                       KC_O,                     KC_P,                       KC_MINUS,
+        KC_TAB,                    KC_Q,                      KC_W,                      KC_E,                      KC_R,                      KC_T,                      KC_MINUS,                 KC_EQUAL,                  KC_Y,                      KC_U,                      KC_I,                       KC_O,                     KC_P,                       KC_MINUS,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         KC_ESCAPE,                 KC_A,                      KC_S,                      KC_D,                      KC_F,                      KC_G,                       TD(TD_LEFT_BRACKET),      KC_RIGHT_BRACKET,          KC_H,                      KC_J,                      KC_K,                       KC_L,                     KC_SEMICOLON,               KC_QUOTE,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
@@ -115,17 +114,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NUM] = LAYOUT(
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                    KC_NO,
+        KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_BACKSPACE,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        KC_NO,                     KC_NO,                     KC_NO,                     KC_K,                      KC_PERCENT,                KC_J,                      KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_DOT,                    KC_COMM,                   KC_BACKSPACE,              KC_NO,
+        KC_NO,                     KC_J,                      KC_NO,                     KC_ASTERISK,               KC_EXCLAIM,                KC_P,                      KC_NO,                     KC_NO,                     KC_PLUS,                   KC_SLASH,                  KC_NO,                     KC_NO,                     KC_DOT,                    KC_NO,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
-        KC_NO,                     KC_6,                      KC_4,                      KC_0,                      KC_2,                      KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_3,                      KC_1,                      KC_5,                      KC_7,                      KC_NO,
+        TO_BASE,                   KC_6,                      KC_4,                      KC_0,                      KC_2,                      KC_K,                      KC_NO,                     KC_NO,                     KC_MINUS,                  KC_3,                      KC_1,                      KC_5,                      KC_7,                      KC_NO,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
-        KC_NO,                     KC_KP_ASTERISK,            KC_NO,                     LSFT(KC_G),                KC_8,                      KC_NO,                                                                           KC_EQUAL,                  KC_9,                      KC_LEFT_BRACKET,           KC_LEFT_PAREN,             KC_RIGHT_PAREN,             KC_NO,
+        KC_NO,                     KC_COMM,                   KC_NO,                     LSFT(KC_G),                KC_8,                      KC_NO,                                                                           KC_EQUAL,                  KC_9,                      KC_LEFT_BRACKET,           KC_LEFT_PAREN,             KC_UNDERSCORE,             KC_NO,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
         KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                                                KC_NO,                     KC_NO,                                                KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,                     KC_NO,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
-                                                                                                                    KC_SPC,                    TO_BASE,                   KC_NO,                     KC_NO,                     TO_BASE,                   TO_BASE
+                                                                                                                    KC_SPC,                    _______,                   KC_NO,                     KC_NO,                     _______,                   KC_LSFT
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
     ),
 
@@ -250,6 +249,21 @@ tap_dance_action_t tap_dance_actions[] = {
     [MY_CMOD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset),
     [TD_BACKSPACE] = ACTION_TAP_DANCE_DOUBLE(KC_BACKSPACE, KC_BACKSPACE_WORD), 
     [TD_LEFT_BRACKET] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_left_bracket_finished, td_left_bracket_reset),
+
+    [TD_1F1] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_F1), 
+    [TD_2F2] = ACTION_TAP_DANCE_DOUBLE(KC_2, KC_F2), 
+    [TD_3F3] = ACTION_TAP_DANCE_DOUBLE(KC_3, KC_F3), 
+    [TD_4F4] = ACTION_TAP_DANCE_DOUBLE(KC_4, KC_F4), 
+    [TD_5F5] = ACTION_TAP_DANCE_DOUBLE(KC_5, KC_F5), 
+    [TD_6F6] = ACTION_TAP_DANCE_DOUBLE(KC_6, KC_F6), 
+    [TD_7F7] = ACTION_TAP_DANCE_DOUBLE(KC_7, KC_F7), 
+    [TD_8F8] = ACTION_TAP_DANCE_DOUBLE(KC_8, KC_F8), 
+    [TD_9F9] = ACTION_TAP_DANCE_DOUBLE(KC_9, KC_F9), 
+    [TD_0F10] = ACTION_TAP_DANCE_DOUBLE(KC_0, KC_F10), 
+
+
+
+    
 };
 
 // Set a long-ish tapping term for tap-dance keys
@@ -263,3 +277,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 }
+
+
+#include "rgb.h"
