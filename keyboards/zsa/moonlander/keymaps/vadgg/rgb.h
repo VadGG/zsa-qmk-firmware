@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#include "combos.h"
+
 static inline uint8_t min(uint8_t a, float b) {
     return (b < a) ? (uint8_t)b : a;
 }
@@ -108,6 +110,16 @@ hsb_color get_mod_color_based_on_mod_status(bool is_mod_state, bool is_toggled_o
 }
 
 
+hsb_color get_mod_combo_color(bool is_active, bool is_pressed, hsb_color mod_color, hsb_color default_color) {
+    if (!is_active) {
+        return default_color;
+    }
+
+    return is_pressed ? (hsb_color){mod_color.h, mod_color.s, 100} : (hsb_color){mod_color.h, mod_color.s, 30};
+}
+
+
+
 hsb_color reduce_brightness(hsb_color color, float percent_brightness) {
     return (hsb_color){color.h, color.s, color.b * percent_brightness};
 }
@@ -132,9 +144,79 @@ hsb_color blend_hsb_colors(hsb_color base_color, hsb_color mod_color) {
 
 // Function to get the base color for a key without mod blending
 hsb_color get_base_key_color(uint16_t keycode, uint8_t layer) {
+    hsb_color alpha_color = (hsb_color)HSB(180, 30, LEVEL_0_BRIGHTNESS);
+    switch(keycode) {
+        case KC_A:
+            if (!is_left_alt_pressed()) {
+                return get_mod_combo_color(true, is_left_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+            } else {
+                return alpha_color;
+            }
+        case KC_S:
+            if (is_left_alt_pressed()) {
+                return get_mod_combo_color(is_left_alt_pressed(), is_left_alt_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+            } else {
+                return get_mod_combo_color(true, is_left_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+            }
+        case KC_D:
+            if (is_left_ctrl_pressed()) {
+                return get_mod_combo_color(is_left_ctrl_pressed(), is_left_ctrl_shift_pressed(), (hsb_color)COLOR_SHIFT, alpha_color);
+            } else if(is_left_alt_pressed()) {
+                return get_mod_combo_color(is_left_alt_pressed(), is_left_alt_shift_pressed(), (hsb_color)COLOR_SHIFT, alpha_color);
+            } else {
+                return alpha_color;
+            }
+        case KC_F:
+            if (is_left_ctrl_pressed()) {
+                return get_mod_combo_color(is_left_ctrl_pressed(), is_left_ctrl_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+            } else {
+                return get_mod_combo_color(true, is_left_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+            }
+        case KC_G:
+            if (!is_left_ctrl_pressed()) {
+                return get_mod_combo_color(true, is_left_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+            } else {
+                return alpha_color;
+            }
+
+        case KC_SCLN:
+            if (!is_right_alt_pressed()) {
+                return get_mod_combo_color(true, is_right_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+            } else {
+                return alpha_color;
+            }
+        case KC_L:
+            if (is_right_alt_pressed()) {
+                return get_mod_combo_color(is_right_alt_pressed(), is_right_alt_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+            } else {
+                return get_mod_combo_color(true, is_right_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+            }
+        case KC_K:
+            if (is_right_ctrl_pressed()) {
+                return get_mod_combo_color(is_right_ctrl_pressed(), is_right_ctrl_shift_pressed(), (hsb_color)COLOR_SHIFT, alpha_color);
+            } else if(is_right_alt_pressed()) {
+                return get_mod_combo_color(is_right_alt_pressed(), is_right_alt_shift_pressed(), (hsb_color)COLOR_SHIFT, alpha_color);
+            } else {
+                return alpha_color;
+            }
+        case KC_J:
+            if (is_right_ctrl_pressed()) {
+                return get_mod_combo_color(is_right_ctrl_pressed(), is_right_ctrl_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+            } else {
+                return get_mod_combo_color(true, is_right_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+            }
+        case KC_H:
+            if (!is_right_ctrl_pressed()) {
+                return get_mod_combo_color(true, is_right_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+            } else {
+                return alpha_color;
+            }
+
+    }
+
     switch (keycode) {
         case KC_A ... KC_Z:
-            return (hsb_color)HSB(180, 30, LEVEL_0_BRIGHTNESS);
+            return alpha_color;
         case KC_1 ... KC_0:
             return (hsb_color)HSB(130, 90, BASE_BRIGHTNESS);
         case KC_F1 ... KC_F12:

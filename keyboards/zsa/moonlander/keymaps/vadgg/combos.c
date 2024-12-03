@@ -1,10 +1,64 @@
 #include "combos.h"
 
 bool is_left_ctrl_mod_pressed = false;
+bool is_left_ctrl_shift_mod_pressed = false;
+bool is_left_ctrl_alt_mod_pressed = false;
+
 bool is_right_ctrl_mod_pressed = false;
+bool is_right_ctrl_shift_mod_pressed = false;
+bool is_right_ctrl_alt_mod_pressed = false;
 
 bool is_left_alt_mod_pressed = false;
+bool is_left_alt_shift_mod_pressed = false;
+bool is_left_alt_ctrl_mod_pressed = false;
+
 bool is_right_alt_mod_pressed = false;
+bool is_right_alt_shift_mod_pressed = false;
+bool is_right_alt_ctrl_mod_pressed = false;
+
+bool is_left_ctrl_pressed(void) {
+  return is_left_ctrl_mod_pressed;
+}
+
+bool is_left_ctrl_shift_pressed(void) {
+  return is_left_ctrl_mod_pressed && is_left_ctrl_shift_mod_pressed;
+}
+
+bool is_left_ctrl_alt_pressed(void) {
+  return is_left_ctrl_mod_pressed && is_left_ctrl_alt_mod_pressed;
+}
+
+bool is_right_ctrl_pressed(void) {
+  return is_right_ctrl_mod_pressed;
+}
+
+bool is_right_ctrl_shift_pressed(void) {
+  return is_right_ctrl_mod_pressed && is_right_ctrl_shift_mod_pressed;
+}
+
+bool is_right_ctrl_alt_pressed(void) {
+  return is_right_ctrl_mod_pressed && is_right_ctrl_alt_mod_pressed;
+}
+
+bool is_left_alt_pressed(void) {
+  return is_left_alt_mod_pressed;
+}
+bool is_left_alt_shift_pressed(void) {
+  return is_left_alt_mod_pressed && is_left_alt_shift_mod_pressed;
+}
+bool is_left_alt_ctrl_pressed(void) {
+  return is_left_alt_mod_pressed && is_left_alt_ctrl_mod_pressed;
+}
+
+bool is_right_alt_pressed(void) {
+  return is_right_alt_mod_pressed;
+}
+bool is_right_alt_shift_pressed(void) {
+  return is_right_alt_mod_pressed && is_right_alt_shift_mod_pressed;
+}
+bool is_right_alt_ctrl_pressed(void) {
+  return is_right_alt_mod_pressed && is_right_alt_ctrl_mod_pressed;
+}
 
 bool register_mod_on_hold(uint16_t keycode, bool pressed) {
     if (pressed) {
@@ -40,11 +94,14 @@ bool process_modifider_combo_event(uint16_t combo_index, bool pressed) {
 bool process_combo_code_press(uint16_t keycode, keyrecord_t *record) {
     if (is_left_ctrl_mod_pressed ) {
         switch(keycode) {
+            case KC_A:
+            case KC_S:
+                return false;
             case KC_D:
-                register_mod_on_hold(KC_LSFT, record->event.pressed);
+                is_left_ctrl_shift_mod_pressed = register_mod_on_hold(KC_LSFT, record->event.pressed);
                 return false;
             case KC_F:
-                register_mod_on_hold(KC_LEFT_ALT, record->event.pressed);
+                is_left_ctrl_alt_mod_pressed = register_mod_on_hold(KC_LEFT_ALT, record->event.pressed);
                 return false;
         }
     }
@@ -52,10 +109,10 @@ bool process_combo_code_press(uint16_t keycode, keyrecord_t *record) {
     if (is_right_ctrl_mod_pressed) {
         switch(keycode) {
             case KC_K:
-                register_mod_on_hold(KC_LSFT, record->event.pressed);
+                is_right_ctrl_shift_mod_pressed = register_mod_on_hold(KC_LSFT, record->event.pressed);
                 return false;
             case KC_J:
-                register_mod_on_hold(KC_LEFT_ALT, record->event.pressed);
+                is_right_ctrl_alt_mod_pressed = register_mod_on_hold(KC_LEFT_ALT, record->event.pressed);
                 return false;
         }
     }
@@ -63,10 +120,10 @@ bool process_combo_code_press(uint16_t keycode, keyrecord_t *record) {
     if (is_left_alt_mod_pressed ) {
         switch(keycode) {
             case KC_D:
-                register_mod_on_hold(KC_LSFT, record->event.pressed);
+                is_left_alt_shift_mod_pressed = register_mod_on_hold(KC_LSFT, record->event.pressed);
                 return false;
             case KC_S:
-                register_mod_on_hold(KC_LCTL, record->event.pressed);
+                is_left_alt_ctrl_mod_pressed = register_mod_on_hold(KC_LCTL, record->event.pressed);
                 return false;
         }
     }

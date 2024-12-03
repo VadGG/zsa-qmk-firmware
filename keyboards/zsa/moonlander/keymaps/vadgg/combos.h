@@ -9,6 +9,21 @@ enum combos {
   RIGHT_ALT_COMBO,
 };
 
+bool is_left_ctrl_pressed(void);
+bool is_left_ctrl_shift_pressed(void);
+bool is_left_ctrl_alt_pressed(void);
+
+bool is_right_ctrl_pressed(void);
+bool is_right_ctrl_shift_pressed(void);
+bool is_right_ctrl_alt_pressed(void);
+
+bool is_left_alt_pressed(void);
+bool is_left_alt_shift_pressed(void);
+bool is_left_alt_ctrl_pressed(void);
+
+bool is_right_alt_pressed(void);
+bool is_right_alt_shift_pressed(void);
+bool is_right_alt_ctrl_pressed(void);
 
 bool process_modifider_combo_event(uint16_t combo_index, bool pressed);
 
