@@ -24,10 +24,10 @@
 
 #include "combos.h"
 
-const uint16_t PROGMEM custom_left_ctrl[] = {KC_A, KC_S, COMBO_END};
-const uint16_t PROGMEM custom_left_alt[] = {KC_G, KC_F, COMBO_END};
-const uint16_t PROGMEM custom_right_ctrl[] = {KC_SCLN, KC_L, COMBO_END};
-const uint16_t PROGMEM custom_right_alt[] = {KC_H, KC_J, COMBO_END};
+const uint16_t PROGMEM custom_left_ctrl[] = {KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM custom_left_alt[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM custom_right_ctrl[] = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM custom_right_alt[] = {KC_K, KC_J, COMBO_END};
 
 const uint16_t PROGMEM to_num[] = {KC_SPACE, KC_ENT, COMBO_END};
 
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         KC_LCTL,                   KC_LEFT_GUI,               KC_LEFT_ALT,               KC_DOWN,                   KC_UP,                                                SGUI(KC_4),                KC_PRINT_SCREEN,                                      KC_LEFT,                   KC_RIGHT,                   KC_LEFT_ALT,              KC_LEFT_GUI,               KC_LEFT_CTRL,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
-                                                                                                                    KC_SPC,                    MO(_LMOD),                 KC_NO,                     KC_NO,                     KC_LSFT,                   KC_ENT
+                                                                                                                    KC_SPC,                    KC_LSFT,                   KC_NO,                     KC_NO,                     KC_LSFT,                   KC_ENT
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
     ),
 

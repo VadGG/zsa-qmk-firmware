@@ -146,73 +146,84 @@ hsb_color blend_hsb_colors(hsb_color base_color, hsb_color mod_color) {
 hsb_color get_base_key_color(uint16_t keycode, uint8_t layer) {
     hsb_color alpha_color = (hsb_color)HSB(180, 30, LEVEL_0_BRIGHTNESS);
     switch(keycode) {
-        case KC_A:
-            if (!is_left_alt_pressed()) {
-                return get_mod_combo_color(true, is_left_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
-            } else {
-                return alpha_color;
-            }
         case KC_S:
-            if (is_left_alt_pressed()) {
-                return get_mod_combo_color(is_left_alt_pressed(), is_left_alt_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
-            } else {
-                return get_mod_combo_color(true, is_left_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
-            }
+            return get_mod_combo_color(true, is_left_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
         case KC_D:
             if (is_left_ctrl_pressed()) {
-                return get_mod_combo_color(is_left_ctrl_pressed(), is_left_ctrl_shift_pressed(), (hsb_color)COLOR_SHIFT, alpha_color);
-            } else if(is_left_alt_pressed()) {
-                return get_mod_combo_color(is_left_alt_pressed(), is_left_alt_shift_pressed(), (hsb_color)COLOR_SHIFT, alpha_color);
+                return get_mod_combo_color(is_left_ctrl_pressed(), is_left_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+            }else if (is_left_alt_pressed()) {
+                return get_mod_combo_color(is_left_alt_pressed(), is_left_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
             } else {
-                return alpha_color;
+                return get_mod_combo_color(true, false, blend_hsb_colors((hsb_color)COLOR_ALT, (hsb_color)COLOR_CTRL), alpha_color) ;
             }
         case KC_F:
-            if (is_left_ctrl_pressed()) {
-                return get_mod_combo_color(is_left_ctrl_pressed(), is_left_ctrl_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
-            } else {
-                return get_mod_combo_color(true, is_left_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
-            }
-        case KC_G:
-            if (!is_left_ctrl_pressed()) {
-                return get_mod_combo_color(true, is_left_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
-            } else {
-                return alpha_color;
-            }
+            return get_mod_combo_color(true, is_left_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
 
-        case KC_SCLN:
-            if (!is_right_alt_pressed()) {
-                return get_mod_combo_color(true, is_right_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
-            } else {
-                return alpha_color;
-            }
-        case KC_L:
-            if (is_right_alt_pressed()) {
-                return get_mod_combo_color(is_right_alt_pressed(), is_right_alt_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
-            } else {
-                return get_mod_combo_color(true, is_right_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
-            }
+        case KC_J:
+            return get_mod_combo_color(true, is_right_ctrl_pressed(), (hsb_color)COLOR_ALT, alpha_color);
         case KC_K:
             if (is_right_ctrl_pressed()) {
-                return get_mod_combo_color(is_right_ctrl_pressed(), is_right_ctrl_shift_pressed(), (hsb_color)COLOR_SHIFT, alpha_color);
-            } else if(is_right_alt_pressed()) {
-                return get_mod_combo_color(is_right_alt_pressed(), is_right_alt_shift_pressed(), (hsb_color)COLOR_SHIFT, alpha_color);
+                return get_mod_combo_color(is_right_ctrl_pressed(), is_right_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+            }else if (is_right_alt_pressed()) {
+                return get_mod_combo_color(is_right_alt_pressed(), is_right_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
             } else {
-                return alpha_color;
+                return get_mod_combo_color(true, false, blend_hsb_colors((hsb_color)COLOR_ALT, (hsb_color)COLOR_CTRL), alpha_color) ;
             }
-        case KC_J:
-            if (is_right_ctrl_pressed()) {
-                return get_mod_combo_color(is_right_ctrl_pressed(), is_right_ctrl_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
-            } else {
-                return get_mod_combo_color(true, is_right_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
-            }
-        case KC_H:
-            if (!is_right_ctrl_pressed()) {
-                return get_mod_combo_color(true, is_right_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
-            } else {
-                return alpha_color;
-            }
-
+        case KC_L:
+            return get_mod_combo_color(true, is_right_alt_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
     }
+    // switch(keycode) {
+    //     case KC_A:
+    //         if (is_left_alt_pressed()) {
+    //             return get_mod_combo_color(is_left_alt_pressed(), is_left_alt_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+    //         } else {
+    //             return get_mod_combo_color(true, is_left_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+    //         }
+    //     case KC_S:
+    //         if(is_left_alt_pressed()) {
+    //             return get_mod_combo_color(is_left_alt_pressed(), is_left_alt_shift_pressed(), (hsb_color)COLOR_SHIFT, alpha_color);
+    //         } else {
+    //             return get_mod_combo_color(true, is_left_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+    //         }
+    //     case KC_D:
+    //         if (is_left_ctrl_pressed()) {
+    //             return get_mod_combo_color(is_left_ctrl_pressed(), is_left_ctrl_shift_pressed(), (hsb_color)COLOR_SHIFT, alpha_color);
+    //         } else {
+    //             return get_mod_combo_color(true, is_left_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+    //         }
+    //     case KC_F:
+    //         if (is_left_ctrl_pressed()) {
+    //             return get_mod_combo_color(is_left_ctrl_pressed(), is_left_ctrl_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+    //         } else {
+    //             return get_mod_combo_color(true, is_left_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+    //         }
+
+    //     case KC_SCLN:
+    //         if (is_right_alt_pressed()) {
+    //             return get_mod_combo_color(is_right_alt_pressed(), is_right_alt_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+    //         } else {
+    //             return get_mod_combo_color(true, is_right_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+    //         }
+    //     case KC_L:
+    //         if(is_right_alt_pressed()) {
+    //             return get_mod_combo_color(is_right_alt_pressed(), is_right_alt_shift_pressed(), (hsb_color)COLOR_SHIFT, alpha_color);
+    //         } else {
+    //             return get_mod_combo_color(true, is_right_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+    //         }
+    //     case KC_K:
+    //         if (is_right_ctrl_pressed()) {
+    //             return get_mod_combo_color(is_right_ctrl_pressed(), is_right_ctrl_shift_pressed(), (hsb_color)COLOR_SHIFT, alpha_color);
+    //         } else {
+    //             return get_mod_combo_color(true, is_right_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+    //         }
+    //     case KC_J:
+    //         if (is_right_ctrl_pressed()) {
+    //             return get_mod_combo_color(is_right_ctrl_pressed(), is_right_ctrl_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+    //         } else {
+    //             return get_mod_combo_color(true, is_right_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+    //         }
+
+    // }
 
     switch (keycode) {
         case KC_A ... KC_Z:
