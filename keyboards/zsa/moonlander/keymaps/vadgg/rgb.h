@@ -190,17 +190,17 @@ hsb_color get_base_key_color(uint16_t keycode, uint8_t layer) {
         case KC_KP_ASTERISK:
         case KC_PERCENT:
             return (hsb_color)HSB(325, 60, LEVEL_0_BRIGHTNESS);
-        case LSFT_T(KC_H):
-        case LSFT_T(KC_G):
+        case HOME_D:
+        case HOME_K:
             return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_shift_mod_on(), (hsb_color)COLOR_SHIFT);
-        case LALT_T(KC_D):
-        case LALT_T(KC_K):
+        case HOME_S:
+        case HOME_L:
             return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_alt_mod_on(), (hsb_color)COLOR_ALT);
-        case LGUI_T(KC_S):
-        case LGUI_T(KC_L):
+        case HOME_SCLN:
+        case HOME_A:
             return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_gui_mod_on(), (hsb_color)COLOR_GUI);
-        case LCTL_T(KC_F):
-        case LCTL_T(KC_J):
+        case HOME_F:
+        case HOME_J:
             return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_ctrl_mod_on(), (hsb_color)COLOR_CTRL);
         case KC_TRANSPARENT:
             if (layer == BASE) {
