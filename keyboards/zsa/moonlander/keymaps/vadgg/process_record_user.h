@@ -3,6 +3,8 @@
 #include "helpers.h"
 #include "processors/functions_record_user.h"
 
+#include "combos.h"
+
 
 void triple_tap(uint16_t keycode) {
     tap_code16(keycode);
@@ -10,7 +12,15 @@ void triple_tap(uint16_t keycode) {
     tap_code16(keycode);
 }
 
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  if (!process_modifider_combo_event(combo_index, pressed)) {
+      return;
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_combo_code_press(keycode, record)) { return false; }
+    
     switch(keycode) {
         case OPEN_BRACKET:
             if (record->event.pressed) {

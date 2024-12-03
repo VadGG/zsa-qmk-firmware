@@ -22,35 +22,44 @@
 #include "keymap.h"
 #include "helpers.h"
 
+#include "combos.h"
 
-// ------------- COMBO ---------------
-// const uint16_t PROGMEM custom_esc[] = {KC_D, KC_S, COMBO_END};
-// const uint16_t PROGMEM custom_tab[] = {KC_D, KC_S, COMBO_END};
-
-const uint16_t PROGMEM custom_enter[] = {KC_J, KC_K, COMBO_END};
-// const uint16_t PROGMEM custom_colon[] = {KC_H, KC_J, COMBO_END};
-
-// const uint16_t PROGMEM custom_backspace[] = {KC_O, KC_P, COMBO_END};
-// const uint16_t PROGMEM custom_backspace_word[] = {KC_I, KC_O, KC_P, COMBO_END};
-// const uint16_t PROGMEM custom_delete_word[] = {KC_W, KC_E, KC_R, COMBO_END};
+const uint16_t PROGMEM custom_left_ctrl[] = {KC_A, KC_S, COMBO_END};
+const uint16_t PROGMEM custom_left_alt[] = {KC_G, KC_F, COMBO_END};
+const uint16_t PROGMEM custom_right_ctrl[] = {KC_SCLN, KC_L, COMBO_END};
+const uint16_t PROGMEM custom_right_alt[] = {KC_H, KC_J, COMBO_END};
 
 const uint16_t PROGMEM to_num[] = {KC_SPACE, KC_ENT, COMBO_END};
 
 const uint16_t PROGMEM qmk_boot[] = {KC_R, KC_TAB, COMBO_END};
 const uint16_t PROGMEM arr_panic[] = {KC_UP, KC_DOWN, COMBO_END};
 
-combo_t                key_combos[] = {
-    // COMBO(custom_esc, KC_ESC),
-    // COMBO(custom_tab, KC_TAB),
-    // COMBO(custom_enter, KC_ENT),
-    // COMBO(custom_colon, KC_COLON),
-    // COMBO(custom_backspace, KC_BACKSPACE),
-    // COMBO(custom_backspace_word, KC_BACKSPACE_WORD),
-    // COMBO(custom_delete_word, KC_DELETE),
+combo_t key_combos[] = {
+    [LEFT_CTRL_COMBO] = COMBO_ACTION(custom_left_ctrl),
+    [LEFT_ALT_COMBO] = COMBO_ACTION(custom_left_alt),
+
+    [RIGHT_CTRL_COMBO] = COMBO_ACTION(custom_right_ctrl),
+    [RIGHT_ALT_COMBO] = COMBO_ACTION(custom_right_alt),
+
+
     COMBO(to_num, TO_NUM_LAYER),
     COMBO(qmk_boot, QK_BOOT),
     COMBO(arr_panic, TO(BASE)),
 };
+
+
+// ------------- COMBO ---------------
+// const uint16_t PROGMEM custom_esc[] = {KC_D, KC_S, COMBO_END};
+// const uint16_t PROGMEM custom_tab[] = {KC_D, KC_S, COMBO_END};
+
+
+// const uint16_t PROGMEM custom_enter[] = {KC_J, KC_K, COMBO_END};
+// const uint16_t PROGMEM custom_colon[] = {KC_H, KC_J, COMBO_END};
+
+// const uint16_t PROGMEM custom_backspace[] = {KC_O, KC_P, COMBO_END};
+// const uint16_t PROGMEM custom_backspace_word[] = {KC_I, KC_O, KC_P, COMBO_END};
+// const uint16_t PROGMEM custom_delete_word[] = {KC_W, KC_E, KC_R, COMBO_END};
+
 
 
 
@@ -86,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   _______,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        _______,                   KC_LEFT_GUI,               KC_LEFT_ALT,               KC_LSFT,                   KC_LEFT_CTRL,              _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   _______,                   _______,
+        _______,                   KC_LEFT_GUI,               KC_LEFT_ALT,               KC_LSFT,                   KC_LEFT_CTRL,              _______,                   _______,                   _______,                   _______,                   KC_LEFT_CTRL,              KC_LSFT,                   KC_LEFT_ALT,               KC_LEFT_GUI,                   _______,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         _______,                   _______,                   _______,                   _______,                   _______,                   _______,                                                                         _______,                   _______,                   _______,                   _______,                   _______,                   _______,        
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
@@ -278,4 +287,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+
 #include "rgb.h"
+
+

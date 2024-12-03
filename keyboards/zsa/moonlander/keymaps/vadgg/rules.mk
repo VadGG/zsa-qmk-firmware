@@ -27,3 +27,5 @@ AUTO_SHIFT_MODIFIERS = no
 
 SEND_STRING_ENABLE = yes
 TAP_DANCE_ENABLE = yes
+
+SRC += combos.c
