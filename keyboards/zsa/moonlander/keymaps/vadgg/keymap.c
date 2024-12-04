@@ -25,9 +25,16 @@
 #include "combos.h"
 
 const uint16_t PROGMEM custom_left_ctrl[] = {KC_S, KC_D, COMBO_END};
-const uint16_t PROGMEM custom_left_alt[] = {KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM custom_right_ctrl[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM custom_right_alt[] = {KC_K, KC_J, COMBO_END};
+const uint16_t PROGMEM custom_left_ctrl_shift[] = {KC_S, KC_D, KC_F, COMBO_END};
+
+const uint16_t PROGMEM custom_right_ctrl[] = {KC_K, KC_J, COMBO_END};
+const uint16_t PROGMEM custom_right_ctrl_shift[] = {KC_K, KC_J, KC_H, COMBO_END};
+
+const uint16_t PROGMEM custom_left_alt[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM custom_left_alt_shift[] = {KC_C, KC_V, KC_B, COMBO_END};
+
+const uint16_t PROGMEM custom_right_alt[] = {KC_COMM, KC_M, COMBO_END};
+const uint16_t PROGMEM custom_right_alt_shift[] = {KC_COMM, KC_M, KC_N, COMBO_END};
 
 const uint16_t PROGMEM to_num[] = {KC_SPACE, KC_ENT, COMBO_END};
 
@@ -36,10 +43,16 @@ const uint16_t PROGMEM arr_panic[] = {KC_UP, KC_DOWN, COMBO_END};
 
 combo_t key_combos[] = {
     [LEFT_CTRL_COMBO] = COMBO_ACTION(custom_left_ctrl),
-    [LEFT_ALT_COMBO] = COMBO_ACTION(custom_left_alt),
+    [LEFT_CTRL_SHIFT_COMBO] = COMBO_ACTION(custom_left_ctrl_shift),
 
     [RIGHT_CTRL_COMBO] = COMBO_ACTION(custom_right_ctrl),
+    [RIGHT_CTRL_SHIFT_COMBO] = COMBO_ACTION(custom_right_ctrl_shift),
+
+    [LEFT_ALT_COMBO] = COMBO_ACTION(custom_left_alt),
+    [LEFT_ALT_SHIFT_COMBO] = COMBO_ACTION(custom_left_alt_shift),
+
     [RIGHT_ALT_COMBO] = COMBO_ACTION(custom_right_alt),
+    [RIGHT_ALT_SHIFT_COMBO] = COMBO_ACTION(custom_right_alt_shift),
 
 
     COMBO(to_num, TO_NUM_LAYER),
@@ -75,17 +88,17 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        KC_GRAVE,                  KC_1,                      KC_2,                      KC_3,                      KC_4,                      KC_5,                      KC_F11,                    KC_F12,                    KC_6,                      KC_7,                      KC_8,                      KC_9,                      KC_0,                      KC_BACKSPACE,
+        KC_GRAVE,                  KC_1,                      KC_2,                      KC_3,                      KC_4,                      KC_5,                      KC_F11,                    KC_F12,                    KC_6,                      KC_7,                      KC_8,                      KC_9,                      KC_0,                      KC_EQUAL,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         KC_TAB,                    KC_Q,                      KC_W,                      KC_E,                      KC_R,                      KC_T,                      KC_MINUS,                  KC_EQUAL,                  KC_Y,                      KC_U,                      KC_I,                      KC_O,                      KC_P,                      KC_MINUS,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-        KC_ESCAPE,                 KC_A,                      KC_S,                      KC_D,                      KC_F,                      KC_G,                      TD(TD_LEFT_BRACKET),       KC_RIGHT_BRACKET,          KC_H,                      KC_J,                      KC_K,                      KC_L,                      KC_SCLN,                   KC_QUOTE,
+        KC_ESCAPE,                 KC_A,                    KC_S,                      KC_D,                      KC_F,                      KC_G,                      TD(TD_LEFT_BRACKET),       KC_RIGHT_BRACKET,          KC_H,                      KC_J,                      KC_K,                      KC_L,                      KC_SCLN,                   KC_QUOTE,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         KC_LSFT,                   KC_Z,                      KC_X,                      KC_C,                      KC_V,                      KC_B,                                                                            KC_N,                      KC_M,                      KC_COMM,                    KC_DOT,                   KC_SLASH,                  KC_BACKSLASH,
      //|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
         KC_LCTL,                   KC_LEFT_GUI,               KC_LEFT_ALT,               KC_DOWN,                   KC_UP,                                                SGUI(KC_4),                KC_PRINT_SCREEN,                                      KC_LEFT,                   KC_RIGHT,                   KC_LEFT_ALT,              KC_LEFT_GUI,               KC_LEFT_CTRL,
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
-                                                                                                                    KC_SPC,                    KC_LSFT,                   KC_NO,                     KC_NO,                     KC_LSFT,                   KC_ENT
+                                                                                                                    KC_SPC,                    KC_BACKSPACE,              KC_NO,                     KC_NO,                     QK_REPEAT_KEY,             KC_ENT
      //|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------|
     ),
 
@@ -289,5 +302,3 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 
 #include "rgb.h"
-
-
