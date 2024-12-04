@@ -36,6 +36,10 @@ const uint16_t PROGMEM custom_left_alt_shift[] = {KC_C, KC_V, KC_B, COMBO_END};
 const uint16_t PROGMEM custom_right_alt[] = {KC_COMM, KC_M, COMBO_END};
 const uint16_t PROGMEM custom_right_alt_shift[] = {KC_COMM, KC_M, KC_N, COMBO_END};
 
+const uint16_t PROGMEM custom_backspace[] = {KC_O, KC_I, COMBO_END};
+const uint16_t PROGMEM custom_delete[] = {KC_O, KC_I, KC_P, COMBO_END};
+const uint16_t PROGMEM custom_curly[] = {KC_Y, KC_U, COMBO_END};
+
 const uint16_t PROGMEM to_num[] = {KC_SPACE, KC_ENT, COMBO_END};
 
 const uint16_t PROGMEM qmk_boot[] = {KC_R, KC_TAB, COMBO_END};
@@ -55,10 +59,15 @@ combo_t key_combos[] = {
     [RIGHT_ALT_SHIFT_COMBO] = COMBO_ACTION(custom_right_alt_shift),
 
 
+    [CURLY_BRACKETS_COMBO] = COMBO_ACTION(custom_curly),
+    COMBO(custom_backspace, KC_BACKSPACE),
+    COMBO(custom_delete, KC_DEL),
+
     COMBO(to_num, TO_NUM_LAYER),
     COMBO(qmk_boot, QK_BOOT),
     COMBO(arr_panic, TO(BASE)),
 };
+
 
 
 // ------------- COMBO ---------------

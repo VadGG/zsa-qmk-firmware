@@ -55,6 +55,8 @@ bool register_mod_on_hold(uint16_t keycode, bool pressed) {
 
 bool process_modifider_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
+    case CURLY_BRACKETS_COMBO:
+        send_string("{}");
     case LEFT_CTRL_COMBO:
       is_left_ctrl_mod_pressed = register_mod_on_hold(KC_LCTL, pressed);
       if (!is_left_ctrl_mod_pressed) {

@@ -14,6 +14,8 @@ enum combos {
 
   RIGHT_ALT_COMBO,
   RIGHT_ALT_SHIFT_COMBO,
+
+  CURLY_BRACKETS_COMBO,
 };
 
 bool is_left_ctrl_pressed(void);

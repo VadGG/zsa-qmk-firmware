@@ -168,6 +168,12 @@ hsb_color get_base_key_color(uint16_t keycode, uint8_t layer) {
             return get_mod_combo_color(true, is_right_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
         case KC_N:
             return get_mod_combo_color(is_right_alt_pressed(), is_right_alt_shift_pressed(), (hsb_color)COLOR_SHIFT, reduce_brightness((hsb_color)COLOR_SHIFT, 0.05));
+
+        case KC_O:
+        case KC_I:
+            return (hsb_color)HSB(0, 80, BASE_BRIGHTNESS);
+        case KC_P:
+            return (hsb_color)HSB(0, 80, LEVEL_0_BRIGHTNESS);
     }
 
     switch (keycode) {
