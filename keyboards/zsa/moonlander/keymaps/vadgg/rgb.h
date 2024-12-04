@@ -160,7 +160,7 @@ hsb_color get_base_key_color(uint16_t keycode, uint8_t layer) {
             return get_mod_combo_color(true, is_left_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
 
         case KC_J:
-            return get_mod_combo_color(true, is_right_ctrl_pressed(), (hsb_color)COLOR_ALT, alpha_color);
+            return get_mod_combo_color(true, is_right_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
         case KC_K:
             if (is_right_ctrl_pressed()) {
                 return get_mod_combo_color(is_right_ctrl_pressed(), is_right_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
@@ -170,7 +170,7 @@ hsb_color get_base_key_color(uint16_t keycode, uint8_t layer) {
                 return get_mod_combo_color(true, false, blend_hsb_colors((hsb_color)COLOR_ALT, (hsb_color)COLOR_CTRL), alpha_color) ;
             }
         case KC_L:
-            return get_mod_combo_color(true, is_right_alt_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
+            return get_mod_combo_color(true, is_right_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
     }
     // switch(keycode) {
     //     case KC_A:
