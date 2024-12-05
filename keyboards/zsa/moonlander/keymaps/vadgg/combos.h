@@ -15,6 +15,9 @@ enum combos {
   RIGHT_ALT_COMBO,
   RIGHT_ALT_SHIFT_COMBO,
 
+  LEFT_CTRL_ALT_COMBO,
+  RIGHT_CTRL_ALT_COMBO,
+
   CURLY_BRACKETS_COMBO,
 };
 
@@ -29,6 +32,9 @@ bool is_left_alt_shift_pressed(void);
 
 bool is_right_alt_pressed(void);
 bool is_right_alt_shift_pressed(void);
+
+bool is_left_ctrl_alt_pressed(void);
+bool is_right_ctrl_alt_pressed(void);
 
 bool process_modifider_combo_event(uint16_t combo_index, bool pressed);
 

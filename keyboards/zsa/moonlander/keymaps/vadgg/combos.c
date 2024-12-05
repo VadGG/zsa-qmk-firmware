@@ -41,6 +41,16 @@ bool is_right_alt_shift_pressed(void) {
 }
 
 
+bool is_left_ctrl_alt_mod_pressed = false;
+bool is_right_ctrl_alt_mod_pressed = false;
+
+bool is_left_ctrl_alt_pressed(void) {
+  return is_left_ctrl_alt_mod_pressed;
+}
+bool is_right_ctrl_alt_pressed(void) {
+  return is_right_ctrl_alt_mod_pressed;
+}
+
 bool register_mod_on_hold(uint16_t keycode, bool pressed) {
     if (pressed) {
         // register_code(keycode);
@@ -99,6 +109,14 @@ bool process_modifider_combo_event(uint16_t combo_index, bool pressed) {
     case RIGHT_ALT_SHIFT_COMBO:
       is_right_alt_mod_pressed = register_mod_on_hold(KC_LEFT_ALT, pressed);
       is_right_alt_shift_mod_pressed = register_mod_on_hold(KC_LSFT, pressed);
+      return false;
+    case LEFT_CTRL_ALT_COMBO:
+      is_left_ctrl_alt_mod_pressed = register_mod_on_hold(KC_LCTL, pressed);
+      is_left_ctrl_alt_mod_pressed = register_mod_on_hold(KC_LEFT_ALT, pressed);
+      return false;
+    case RIGHT_CTRL_ALT_COMBO:
+      is_right_ctrl_alt_mod_pressed = register_mod_on_hold(KC_LCTL, pressed);
+      is_right_ctrl_alt_mod_pressed = register_mod_on_hold(KC_LEFT_ALT, pressed);
       return false;
   }
 
