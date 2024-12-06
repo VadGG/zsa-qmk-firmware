@@ -63,10 +63,20 @@ bool register_mod_on_hold(uint16_t keycode, bool pressed) {
     return pressed;
 }
 
+void double_parens_left(uint16_t left, uint16_t right) {
+    tap_code16(left);
+    tap_code16(right);
+    tap_code16(KC_LEFT);
+}
+
 bool process_modifider_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
     case CURLY_BRACKETS_COMBO:
-        send_string("{}");
+        // send_string("{}");
+        if (pressed) {
+          double_parens_left(KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE);
+        }
+        return false;
     case LEFT_CTRL_COMBO:
       is_left_ctrl_mod_pressed = register_mod_on_hold(KC_LCTL, pressed);
       if (!is_left_ctrl_mod_pressed) {
@@ -85,8 +95,8 @@ bool process_modifider_combo_event(uint16_t combo_index, bool pressed) {
       }
       return false;
     case RIGHT_CTRL_SHIFT_COMBO:
-      is_left_ctrl_mod_pressed = register_mod_on_hold(KC_LCTL, pressed);
-      is_left_ctrl_shift_mod_pressed = register_mod_on_hold(KC_LSFT, pressed);
+      is_right_ctrl_mod_pressed = register_mod_on_hold(KC_LCTL, pressed);
+      is_right_ctrl_shift_mod_pressed = register_mod_on_hold(KC_LSFT, pressed);
       return false;
 
     case LEFT_ALT_COMBO:
@@ -131,6 +141,14 @@ bool process_combo_code_press(uint16_t keycode, keyrecord_t *record) {
               return false;
         }
     }
+    if (is_left_alt_mod_pressed) {
+        switch (keycode) {
+            case KC_A:
+              is_left_alt_shift_mod_pressed = register_mod_on_hold(KC_LSFT, record->event.pressed);
+              return false;
+        }
+    }
+
     if (is_right_ctrl_mod_pressed) {
         switch (keycode) {
             case KC_H:
@@ -138,16 +156,9 @@ bool process_combo_code_press(uint16_t keycode, keyrecord_t *record) {
               return false;
         }
     }
-    if (is_left_alt_mod_pressed) {
-        switch (keycode) {
-            case KC_B:
-              is_left_alt_shift_mod_pressed = register_mod_on_hold(KC_LSFT, record->event.pressed);
-              return false;
-        }
-    }
     if (is_right_alt_mod_pressed) {
         switch (keycode) {
-            case KC_N:
+            case KC_L:
               is_right_alt_shift_mod_pressed = register_mod_on_hold(KC_LSFT, record->event.pressed);
               return false;
         }
