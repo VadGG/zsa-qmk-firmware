@@ -46,8 +46,8 @@ enum custom_keycodes {
 
 enum layers {
     BASE,  // default layer
-    _LMOD,
-    _RMOD,
+    _MODS,
+    _SYM,
     _NUM,
     NAV,  // navidation
     NUM,  // numbers

@@ -211,11 +211,11 @@ hsb_color get_base_key_color(uint16_t keycode, uint8_t layer) {
                 return alpha_color;
             }
 
-        case KC_O:
-        case KC_I:
-            return (hsb_color)HSB(0, 80, BASE_BRIGHTNESS);
-        case KC_P:
-            return (hsb_color)HSB(0, 80, LEVEL_0_BRIGHTNESS);
+        // case KC_O:
+        // case KC_I:
+        //     return (hsb_color)HSB(0, 80, BASE_BRIGHTNESS);
+        // case KC_P:
+        //     return (hsb_color)HSB(0, 80, LEVEL_0_BRIGHTNESS);
     }
 
     switch (keycode) {
