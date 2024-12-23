@@ -163,19 +163,20 @@ hsb_color get_base_key_color(uint16_t keycode, uint8_t layer) {
             } else {
                 return get_mod_combo_color(true, is_left_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
             }
-        case KC_F:
+        case KC_V:
             if (is_left_ctrl_pressed()) {
                 return get_mod_combo_color(is_left_ctrl_pressed(), is_left_ctrl_pressed(), (hsb_color)COLOR_SHIFT, reduce_brightness((hsb_color)COLOR_SHIFT, 0.05));
-            } else if (is_left_ctrl_alt_pressed()) {
+            } else if (is_left_alt_pressed()) {
+                return get_mod_combo_color(is_left_alt_pressed(), is_left_alt_pressed(), (hsb_color)COLOR_SHIFT, reduce_brightness((hsb_color)COLOR_SHIFT, 0.05));
+            }
+            else {
+                return alpha_color;
+            }
+        case KC_F:
+            if (is_left_ctrl_alt_pressed()) {
                 return get_mod_combo_color(true, is_left_ctrl_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
             } else {
                 return get_mod_combo_color(true, is_left_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
-            }
-        case KC_A:
-            if (is_left_alt_pressed()) {
-                return get_mod_combo_color(is_left_alt_pressed(), is_left_alt_pressed(), (hsb_color)COLOR_SHIFT, reduce_brightness((hsb_color)COLOR_SHIFT, 0.05));
-            } else {
-                return alpha_color;
             }
 
         case KC_K:
@@ -196,19 +197,20 @@ hsb_color get_base_key_color(uint16_t keycode, uint8_t layer) {
             } else {
                 return get_mod_combo_color(true, is_right_ctrl_pressed(), (hsb_color)COLOR_CTRL, alpha_color);
             }
-        case KC_H:
+        case KC_N:
             if (is_right_ctrl_pressed()) {
                 return get_mod_combo_color(is_right_ctrl_pressed(), is_right_ctrl_pressed(), (hsb_color)COLOR_SHIFT, reduce_brightness((hsb_color)COLOR_SHIFT, 0.05));
-            } else if (is_right_ctrl_alt_pressed()) {
+            } else if (is_right_alt_pressed()) {
+                return get_mod_combo_color(is_right_alt_pressed(), is_right_alt_pressed(), (hsb_color)COLOR_SHIFT, reduce_brightness((hsb_color)COLOR_SHIFT, 0.05));
+            }
+            else {
+                return alpha_color;
+            }
+        case KC_H:
+            if (is_right_ctrl_alt_pressed()) {
                 return get_mod_combo_color(true, is_right_ctrl_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
             } else {
                 return get_mod_combo_color(true, is_right_alt_pressed(), (hsb_color)COLOR_ALT, alpha_color);
-            }
-        case KC_L:
-            if (is_right_alt_pressed()) {
-                return get_mod_combo_color(is_right_alt_pressed(), is_right_alt_pressed(), (hsb_color)COLOR_SHIFT, reduce_brightness((hsb_color)COLOR_SHIFT, 0.05));
-            } else {
-                return alpha_color;
             }
 
         // case KC_O:
@@ -277,16 +279,16 @@ hsb_color get_base_key_color(uint16_t keycode, uint8_t layer) {
         case KC_PERCENT:
             return (hsb_color)HSB(325, 60, LEVEL_0_BRIGHTNESS);
         case HOME_D:
-        case HOME_K:
-            return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_shift_mod_on(), (hsb_color)COLOR_SHIFT);
-        case HOME_S:
-        case HOME_L:
-            return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_alt_mod_on(), (hsb_color)COLOR_ALT);
-        case HOME_SCLN:
-        case HOME_A:
-            return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_gui_mod_on(), (hsb_color)COLOR_GUI);
-        case HOME_F:
         case HOME_J:
+            return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_shift_mod_on(), (hsb_color)COLOR_SHIFT);
+        case HOME_F:
+        case HOME_H:
+            return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_alt_mod_on(), (hsb_color)COLOR_ALT);
+        case HOME_A:
+        case HOME_L:
+            return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_gui_mod_on(), (hsb_color)COLOR_GUI);
+        case HOME_S:
+        case HOME_K:
             return get_mod_color_based_on_mod_status(is_custom_mod_on(), is_ctrl_mod_on(), (hsb_color)COLOR_CTRL);
         case KC_TRANSPARENT:
             if (layer == BASE) {

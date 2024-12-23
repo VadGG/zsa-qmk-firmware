@@ -111,15 +111,15 @@ bool process_modifider_combo_event(uint16_t combo_index, bool pressed) {
     case DASH_ARROW_LEFT:
         // send_string("{}");
         if (pressed) {
-          tap_code16(KC_MINUS);
           tap_code16(KC_LEFT_ANGLE_BRACKET);
+          tap_code16(KC_MINUS);
         }
         return false;
     case EQUAL_ARROW_LEFT:
         // send_string("{}");
         if (pressed) {
-          tap_code16(KC_EQUAL);
           tap_code16(KC_LEFT_ANGLE_BRACKET);
+          tap_code16(KC_EQUAL);
         }
         return false;
     case DASH_ARROW_RIGHT:
@@ -232,14 +232,14 @@ bool process_modifider_combo_event(uint16_t combo_index, bool pressed) {
 bool process_combo_code_press(uint16_t keycode, keyrecord_t *record) {
     if (is_left_ctrl_mod_pressed) {
         switch (keycode) {
-            case KC_F:
+            case KC_V:
               is_left_ctrl_shift_mod_pressed = register_mod_on_hold(KC_LSFT, record->event.pressed);
               return false;
         }
     }
     if (is_left_alt_mod_pressed) {
         switch (keycode) {
-            case KC_A:
+            case KC_V:
               is_left_alt_shift_mod_pressed = register_mod_on_hold(KC_LSFT, record->event.pressed);
               return false;
         }
@@ -247,14 +247,14 @@ bool process_combo_code_press(uint16_t keycode, keyrecord_t *record) {
 
     if (is_right_ctrl_mod_pressed) {
         switch (keycode) {
-            case KC_H:
+            case KC_N:
               is_right_ctrl_shift_mod_pressed = register_mod_on_hold(KC_LSFT, record->event.pressed);
               return false;
         }
     }
     if (is_right_alt_mod_pressed) {
         switch (keycode) {
-            case KC_L:
+            case KC_N:
               is_right_alt_shift_mod_pressed = register_mod_on_hold(KC_LSFT, record->event.pressed);
               return false;
         }
